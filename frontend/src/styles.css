@@ -1,0 +1,1242 @@
+/* StoryBridge — one page, in the SmileCard website style: dusk-gradient banner, rounded white cards,
+   italic serif headlines with a round sans, small spaced-out labels, and pill buttons.
+   Accessibility stays first: 20 px text, strong contrast, big targets, visible focus. */
+
+:root {
+  --ink: #231a3b;          /* headings */
+  --text: #4a4561;         /* body text: about 8:1 on white */
+  --purple: #6a3fb0;       /* labels: about 6.9:1 on white */
+  --purple-deep: #4a2a86;  /* main buttons */
+  --magenta: #b52a84;      /* pink buttons: about 5.3:1 with white */
+  --teal: #1f7aa3;         /* blue buttons: about 4.8:1 with white */
+  --danger: #a3214f;
+  --page: #f6f3fb;         /* lavender page */
+  --card: #ffffff;
+  --line: #e6dff0;
+  --blue-soft: #e5f2f8;
+  --pink-soft: #fbe8f2;
+  --lavender-soft: #f1ebfa;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Outfit", "Segoe UI", Arial, sans-serif;
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important; /* otherwise rules like input[type="file"] { display: block } would show it */
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+}
+
+h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+a {
+  color: var(--purple-deep);
+}
+
+:focus-visible {
+  outline: 4px solid #8b5cf6;
+  outline-offset: 3px;
+}
+
+h2:focus,
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 100;
+  background: var(--card);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+}
+
+.skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* --- the shared type styles ---------------------------------------------------------------- */
+.display {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.display-sans {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--purple);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow-light {
+  color: #ffffff;
+}
+
+.eyebrow-blue {
+  color: #1d6a8f;
+}
+
+.eyebrow-pink {
+  color: #a12474;
+}
+
+.step-label {
+  margin: 0 0 0.25rem;
+  color: var(--purple);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.5rem;
+}
+
+/* --- buttons: pills ------------------------------------------------------------------------- */
+button,
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 3rem;
+  padding: 0.55rem 1.5rem;
+  border: 2px solid var(--purple-deep);
+  border-radius: 999px;
+  background: var(--purple-deep);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: var(--card);
+  color: var(--ink);
+  border-color: #b9aed0;
+}
+
+button.danger {
+  background: var(--card);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+button.pill-teal {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
+button.pill-pink {
+  background: var(--magenta);
+  border-color: var(--magenta);
+}
+
+.pill-white {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--ink);
+}
+
+.pill-ghost {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- forms ------------------------------------------------------------------------------------ */
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.45rem 0.8rem;
+  border: 2px solid #c9bedb;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0;
+}
+
+input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.2rem;
+  flex: none;
+  accent-color: var(--purple-deep);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.check {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin: 0.75rem 0;
+  font-weight: 400;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0.5rem 1.25rem 1rem;
+  border: 2px solid rgba(35, 26, 59, 0.15);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+legend {
+  padding: 0 0.4rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.field {
+  margin: 1rem 0;
+}
+
+.stack > * + * {
+  margin-top: 1rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+code {
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  background: var(--lavender-soft);
+  word-break: break-all;
+}
+
+/* --- page frame ---------------------------------------------------------------------------- */
+.site {
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 2rem;
+}
+
+/* --- the banner ---------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 3rem 0;
+  border-radius: 2rem;
+  color: #ffffff;
+  background:
+    radial-gradient(120% 60% at 75% 0%, rgba(255, 196, 206, 0.45), transparent 60%),
+    linear-gradient(180deg, #b0598a 0%, #8b56a6 34%, #5d3f93 64%, #2e2166 100%);
+}
+
+/* layered hills, like the SmileCard dusk photo */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 120 C150 70 280 115 410 85 C560 50 690 110 840 80 C980 52 1090 92 1200 70 V300 H0Z' fill='%236b4ea6' fill-opacity='.45'/%3E%3Cpath d='M0 175 C170 140 310 172 470 150 C640 126 770 168 940 146 C1070 130 1150 150 1200 142 V300 H0Z' fill='%23493590' fill-opacity='.6'/%3E%3Cpath d='M0 228 C190 205 330 226 520 210 C700 195 860 222 1030 206 C1110 199 1170 205 1200 202 V300 H0Z' fill='%23302268' fill-opacity='.75'/%3E%3C/svg%3E")
+    bottom / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brand-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.brand-name-dark {
+  color: var(--ink);
+  font-size: 1.2rem;
+}
+
+.brand-by {
+  align-self: flex-end;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  color: #ffffff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 3.5rem 0 2rem;
+}
+
+.hero h1 {
+  color: #ffffff;
+  margin: 0 0 1rem;
+}
+
+.hero h1 .display {
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  line-height: 1;
+}
+
+.hero h1 .display-sans {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+}
+
+.hero-lead {
+  max-width: 34rem;
+  margin: 0 0 1.75rem;
+  color: #ffffff;
+  font-size: 1.05rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.hero-art {
+  position: relative;
+  height: 20rem;
+}
+
+.hero-art .card-buddy {
+  position: absolute;
+  filter: drop-shadow(0 18px 24px rgba(28, 16, 60, 0.35));
+}
+
+.buddy-back {
+  left: 14%;
+  top: 14%;
+}
+
+.buddy-front {
+  left: 42%;
+  top: 6%;
+}
+
+.hero-word {
+  position: absolute;
+  z-index: 2; /* in front of the cards */
+  font-family: "Chewy", var(--sans);
+  font-size: 3.4rem;
+  color: #ffffff;
+  text-shadow: 0 4px 14px rgba(28, 16, 60, 0.35);
+}
+
+.hero-word-top {
+  left: 2%;
+  top: -10%;
+  transform: rotate(-8deg);
+}
+
+.hero-word-bottom {
+  right: 4%;
+  bottom: -2%;
+  transform: rotate(-6deg);
+}
+
+.hero-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  list-style: none;
+}
+
+.hero-step-number {
+  display: block;
+  font-family: var(--serif);
+  font-size: 3.4rem;
+  line-height: 1;
+}
+
+.hero-step-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* --- white rounded sections ------------------------------------------------------------------ */
+.section-card,
+.workspace {
+  margin-top: 1.5rem;
+  padding: 3rem;
+  border-radius: 2rem;
+  background: var(--card);
+}
+
+.section-card h2 .display,
+.workspace-title .display {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+}
+
+.section-card h2 .display-sans {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+}
+
+.why-head {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.why-art {
+  position: relative;
+}
+
+.book-sketch {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.why-art .card-buddy {
+  position: absolute;
+  bottom: -1.5rem;
+  filter: drop-shadow(0 10px 14px rgba(28, 16, 60, 0.18));
+}
+
+.why-buddy-left {
+  left: 8%;
+}
+
+.why-buddy-right {
+  left: 26%;
+}
+
+.why-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.why-steps li {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.why-steps h3 {
+  margin-top: 0.5rem;
+}
+
+/* --- the two coloured panels ----------------------------------------------------------------- */
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.panel {
+  position: relative;
+  padding: 3rem 2.5rem 2.5rem;
+  border-radius: 2rem;
+}
+
+.panel-pink {
+  background: var(--pink-soft);
+}
+
+.panel-blue {
+  background: var(--blue-soft);
+}
+
+.panel-title .display {
+  display: inline;
+  font-size: clamp(2.1rem, 4vw, 3rem);
+}
+
+.panel-buddy {
+  position: absolute;
+  top: -1.4rem;
+  right: 1.5rem;
+  filter: drop-shadow(0 10px 14px rgba(28, 16, 60, 0.18));
+}
+
+.panel .card {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.story-list {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 0.9rem 1rem 0.9rem 1.25rem;
+  border: 2px solid transparent;
+  border-radius: 1.2rem;
+  background: #ffffff;
+}
+
+.story-list li.is-open {
+  border-color: var(--magenta);
+}
+
+.story-list strong {
+  display: block;
+  color: var(--ink);
+}
+
+.story-list span {
+  font-size: 0.85rem;
+}
+
+/* --- the open story -------------------------------------------------------------------------- */
+.workspace-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.step-card {
+  margin-top: 1.5rem;
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: #fcfbfe;
+}
+
+.note,
+.card {
+  margin: 1rem 0;
+  padding: 0.9rem 1.25rem;
+  border-radius: 1.2rem;
+  background: var(--lavender-soft);
+  color: var(--ink);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+.player {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 5;
+  padding: 0.5rem;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(35, 26, 59, 0.12);
+}
+
+.player audio {
+  display: block;
+  width: 100%;
+}
+
+/* step 04: the pages on the left and "Ask for changes" beside them (below them on smaller screens) */
+.review-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1100px) {
+  .review-layout {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+    grid-template-areas:
+      "pages chat"
+      "confirm chat";
+    align-items: start;
+  }
+
+  .review-pages {
+    grid-area: pages;
+  }
+
+  .confirm-box {
+    grid-area: confirm;
+  }
+
+  .review-chat {
+    grid-area: chat;
+    position: sticky;
+    top: 1rem;
+  }
+
+  .review-chat .chat-log {
+    max-height: min(22rem, calc(100vh - 24rem));
+  }
+}
+
+.page-card {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.25rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: #ffffff;
+}
+
+/* on wide screens a page reads like a spread: the picture on the left, its sentences on the right */
+@media (min-width: 1000px) {
+  .page-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: 0 1.5rem;
+  }
+
+  .page-card h4 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* the same shape as the picture box in the printed book */
+.picture-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1.55;
+  overflow: hidden;
+  border: 3px dashed #b9aed0;
+  border-radius: 1.2rem;
+  background: var(--page);
+}
+
+.picture-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.picture-box.dragging {
+  border-style: solid;
+  border-color: var(--purple);
+  background: var(--lavender-soft);
+}
+
+.picture-box-empty {
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  color: var(--text);
+}
+
+.picture-idea {
+  display: block;
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+.picture-box-wrap .actions {
+  margin: 0.75rem 0 1rem;
+}
+
+.sentences {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sentence {
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1.1rem 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 1.1rem;
+  background: #ffffff;
+}
+
+.sentence-removed {
+  border-style: dotted;
+  background: var(--page);
+}
+
+.sentence-removed .sentence-text {
+  text-decoration: line-through;
+}
+
+.sentence-status {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.sentence-text {
+  margin: 0.25rem 0 0.5rem;
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+
+.segment-time {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* the page's words, as they will read in the book (Arial, like the printed pages) */
+.page-text {
+  margin: 0 0 0.75rem;
+  color: #111111;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.65;
+}
+
+.page-text-empty {
+  color: var(--text);
+  font-style: italic;
+}
+
+/* a sentence added or changed after the story was confirmed: highlighted AND labelled, never colour alone */
+mark.changed {
+  padding: 0.05rem 0.15rem;
+  border-radius: 0.25rem;
+  background: #fff1a8;
+  color: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.changed-tag {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--magenta);
+  color: #ffffff;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  vertical-align: 0.15em;
+}
+
+/* "Fix this page by hand": the sentence-by-sentence tools, folded away until needed */
+.fix-by-hand {
+  margin: 0 0 1rem;
+}
+
+.fix-by-hand summary {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border: 1px solid #b9aed0;
+  border-radius: 999px;
+  color: var(--purple-deep);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fix-by-hand summary::-webkit-details-marker {
+  display: none;
+}
+
+.fix-by-hand summary::before {
+  content: "▸ ";
+}
+
+.fix-by-hand[open] summary {
+  margin-bottom: 0.75rem;
+}
+
+.fix-by-hand[open] summary::before {
+  content: "▾ ";
+}
+
+.fix-by-hand .sentence {
+  padding: 0.6rem 0.9rem 0.7rem;
+}
+
+.fix-by-hand .sentence-text {
+  font-size: 0.95rem;
+}
+
+.fix-by-hand .actions {
+  gap: 0.4rem;
+}
+
+.fix-by-hand .actions button {
+  min-height: 2.2rem;
+  padding: 0.2rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+/* "Ask for changes" */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: var(--lavender-soft);
+}
+
+.chat-title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 5rem;
+  max-height: 22rem;
+  overflow-y: auto;
+}
+
+.chat-hello,
+.chat-off {
+  margin: 0;
+  color: var(--ink);
+}
+
+.chat-msg {
+  max-width: 92%;
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  border-radius: 1.1rem;
+  line-height: 1.45;
+}
+
+.chat-you {
+  align-self: flex-end;
+  border-bottom-right-radius: 0.3rem;
+  background: var(--purple-deep);
+  color: #ffffff;
+}
+
+.chat-helper {
+  align-self: flex-start;
+  border-bottom-left-radius: 0.3rem;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.chat-problem {
+  border: 2px solid var(--danger);
+}
+
+.chat-thinking {
+  font-style: italic;
+}
+
+.chat-note {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--purple);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.chat-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+button.chat-example {
+  justify-content: flex-start;
+  min-height: 0;
+  padding: 0.45rem 0.9rem;
+  border: 1px dashed #b9aed0;
+  border-radius: 1rem;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chat-form textarea {
+  min-height: 4.5rem;
+  resize: vertical;
+}
+
+.chat-form button {
+  align-self: flex-end;
+}
+
+.chat-privacy {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+/* one confirmation for the whole story, instead of approving sentence by sentence */
+.confirm-box {
+  padding: 1.25rem 1.5rem;
+  border: 2px dashed var(--purple);
+  border-radius: 1.4rem;
+  background: #ffffff;
+}
+
+.confirm-box p {
+  margin: 0 0 0.9rem;
+  color: var(--ink);
+}
+
+.confirm-done {
+  border-style: solid;
+  border-color: #2e7d4f;
+  background: #eef8f1;
+}
+
+.confirm-done p {
+  margin: 0;
+}
+
+.danger-zone {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+/* --- page flipper: an open book on a soft lavender background ---------------------------------- */
+.book-stage {
+  perspective: 2600px;
+  padding: 2.5rem 1.25rem 3rem;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: radial-gradient(ellipse at 50% 30%, #fbf9fe 0%, #ebe4f5 85%);
+  cursor: pointer;
+}
+
+.book {
+  position: relative;
+  width: min(100%, 56rem);
+  aspect-ratio: 2 / 1; /* two square pages side by side */
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+
+.book.closed-front {
+  transform: translateX(-25%); /* only the cover is showing: centre it */
+}
+
+.book.closed-back {
+  transform: translateX(25%);
+}
+
+.leaf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center; /* the spine */
+  transform-style: preserve-3d;
+  /* the stacking order switches halfway through the turn, when the page is edge-on */
+  transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0s linear 0.45s;
+}
+
+.leaf.turned {
+  transform: rotateY(-180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(35, 26, 59, 0.18);
+}
+
+.face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+.face.back {
+  transform: rotateY(180deg);
+}
+
+/* soft shading near the spine, like a real open book */
+.face.front::after,
+.face.back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.face.front::after {
+  background: linear-gradient(to right, rgba(35, 26, 59, 0.14), rgba(35, 26, 59, 0) 6%);
+}
+
+.face.back::after {
+  background: linear-gradient(to left, rgba(35, 26, 59, 0.14), rgba(35, 26, 59, 0) 6%);
+}
+
+.book-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.book-position {
+  min-width: 14rem;
+  margin: 0;
+  color: var(--ink);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --- messages: a small pill at the bottom of the screen ---------------------------------------- */
+.status-area {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  z-index: 50;
+  width: min(42rem, calc(100% - 2rem));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.status {
+  margin: 0.4rem 0 0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 1.2rem;
+  background: var(--ink);
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(35, 26, 59, 0.3);
+  pointer-events: auto;
+}
+
+.status:empty {
+  display: none;
+}
+
+.status-error {
+  border: 3px solid var(--danger);
+  background: #ffffff;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* --- footer ---------------------------------------------------------------------------------- */
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.5rem 0 4rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* --- smaller screens ------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .hero {
+    padding: 1.25rem 1.5rem 0;
+  }
+
+  .hero-grid,
+  .why-head,
+  .panels {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-art {
+    height: 15rem;
+  }
+
+  .why-steps,
+  .hero-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .section-card,
+  .workspace,
+  .panel {
+    padding: 2rem 1.25rem;
+  }
+
+  .step-card {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .site {
+    padding: 0.75rem 0.75rem 2rem;
+  }
+
+  .brand-name {
+    font-size: 1.6rem;
+  }
+
+  .brand-by {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 0.25rem 1.25rem;
+  }
+
+  .hero-word {
+    font-size: 2.4rem;
+  }
+
+  .hero-step-number {
+    font-size: 2.6rem;
+  }
+
+  .story-list li {
+    flex-wrap: wrap;
+  }
+
+  .step-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .page-card,
+  .chat {
+    padding: 1rem 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book,
+  .leaf {
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

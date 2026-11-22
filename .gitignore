@@ -1,0 +1,35 @@
+# --- StoryBridge privacy guardrails: never commit recordings, transcripts, or projects ---
+data/
+models/
+*.wav
+*.mp3
+*.m4a
+*.webm
+*.ogg
+*.flac
+*.opus
+*.mp4
+*.mov
+# Only commit a recording if the storyteller explicitly agreed it may be public;
+# then add it deliberately with `git add -f` and log the consent in AI_USE.md/CREDITS.md.
+
+# --- secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# --- Node ---
+node_modules/
+frontend/dist/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
