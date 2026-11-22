@@ -55,6 +55,8 @@ The first transcription downloads the Whisper `small` model weights (no audio is
 ```
 Open **http://127.0.0.1:8000** on this computer. If Windows asks about the firewall, allow private networks only, so phones can reach the QR clips.
 
+The redesigned SmileCard website is at **http://127.0.0.1:8000/smilecard/**. Its menu has a **StoryBridge** item that opens the app, and the app's menu links back. The website's pages load React and fonts from the internet when opened; the StoryBridge app itself works offline.
+
 **Demo recordings** (computer voice reading fictional stories; never presented as real people):
 
 ```powershell
@@ -68,7 +70,7 @@ Create a story of kind "Computer-voice test", upload a clip, fill in step 2, and
 
 ## Tests
 ```powershell
-.\.venv\Scripts\python.exe -m pytest        # backend: 182 tests
+.\.venv\Scripts\python.exe -m pytest        # backend: 184 tests
 cd frontend; npm test                        # frontend: 9 tests
 ```
 Backend tests never call Google; a mock network is used. Counts are as of 2026-11-22.
@@ -82,8 +84,8 @@ Backend tests never call Google; a mock network is used. Counts are as of 2026-1
 - **The API key stays on the server.** It is never sent to the browser and never written into error messages.
 
 ## Accessibility decisions
-- Everything is on one scrolling page in the SmileCard website's style:
-  - a dusk-colored banner
+- StoryBridge is one page of the SmileCard website (the student's redesign), all on one scroll:
+  - the SmileCard menu and mountain-photo banner
   - "How it works"
   - "Your stories" and "Start a new story" side by side
   - the open story below

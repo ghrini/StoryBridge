@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import CardBuddy from "./components/CardBuddy.jsx";
 import Hero from "./components/Hero.jsx";
 import HowItWorks from "./components/HowItWorks.jsx";
 import NewProjectForm from "./components/NewProjectForm.jsx";
+import { PeekingFriend } from "./components/SmileCardArt.jsx";
 import StatusBar from "./components/StatusBar.jsx";
+import SiteFooter from "./components/SiteFooter.jsx";
 import StoryList from "./components/StoryList.jsx";
 import ProjectPage from "./pages/ProjectPage.jsx";
 import { createProject, getConfig, listProjects } from "./services/api.js";
@@ -64,7 +65,7 @@ export default function App() {
 
           <section className="panels" aria-label="Your stories and a new story">
             <div className="panel panel-pink" id="your-stories">
-              <CardBuddy className="panel-buddy" color="#c2318f" face="smile" size={64} tilt={10} />
+              <PeekingFriend young />
               <p className="eyebrow eyebrow-pink">Your stories</p>
               <h2 className="panel-title">
                 <span className="display">Pick up where</span> <span className="display">you left off.</span>
@@ -73,7 +74,7 @@ export default function App() {
             </div>
 
             <div className="panel panel-blue" id="start">
-              <CardBuddy className="panel-buddy" color="#3a6fe0" face="happy" size={64} tilt={-8} />
+              <PeekingFriend />
               <p className="eyebrow eyebrow-blue">For families and volunteers</p>
               <h2 className="panel-title">
                 <span className="display">Start a new story</span> <span className="display">for someone you love.</span>
@@ -97,12 +98,7 @@ export default function App() {
           )}
         </main>
 
-        <footer className="site-footer">
-          <p>
-            <span className="brand-name brand-name-dark">StoryBridge</span>, a SmileCard project. Recordings, stories,
-            and pictures stay on this computer.
-          </p>
-        </footer>
+        <SiteFooter />
       </div>
       <StatusBar status={status} />
     </>

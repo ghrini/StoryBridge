@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Pacifico&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+body { margin: 0; background: #faf7fc; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
+a { color: #1f93b5; }
+a:hover { color: #7a35a3; }
+</style>
+</helmet>
+<dc-import name="PageHero" current="more" kicker="Testimonials" title="Words from" subtitle="senior centers" intro="" hint-size="100%,460px"></dc-import>
+
+<div style="padding:0 clamp(10px,2vw,24px);">
+  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(48px,7vw,104px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:24px;">
+    <span style="font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#7a35a3;">Featured</span>
+    <p style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(22px,2.4vw,32px); line-height:1.4; color:#2b2632; max-width:62ch;">"{{ featured }}"</p>
+    <a href="https://www.aegisliving.com/communications/coronavirus-response/may-22nd-update/" style="justify-self:start; font-size:15px; font-weight:500;">— Aegis Living ↗</a>
+  </section>
+
+  <section style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; columns:3 300px; column-gap:clamp(10px,2vw,24px);">
+    <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="6">
+      <figure data-reveal="{{ q.delay }}" style="{{ q.style }}">
+        <p style="margin:0; font-size:16.5px; line-height:1.65; font-weight:300; color:#3a3542;">"{{ q.text }}"</p>
+      </figure>
+    </sc-for>
+  </section>
+
+  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(48px,7vw,96px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:28px;">
+    <div style="display:grid; gap:8px;">
+      <h2 style="margin:0; font-weight:400; line-height:1.02; color:#2b2632;"><span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(38px,4.6vw,64px);">Spreading</span> <span style="font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,3.8vw,52px); letter-spacing:-0.03em;">the joy…</span></h2>
+      <p style="margin:0; font-size:16px; color:#6f667a;">One of the Seniors reading a card made by Ghrini.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px;">
+      <sc-for list="{{ photos }}" as="ph" hint-placeholder-count="6">
+        <img src="{{ ph }}" alt="Seniors receiving SmileCard cards" loading="lazy" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:18px; display:block; background:#f3ecfb; transition:transform .3s ease;" style-hover="transform:scale(1.03) rotate(-1deg);">
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fbe8f3; padding:clamp(48px,7vw,96px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:40px;">
+    <div style="display:grid; gap:16px; align-content:start;">
+      <h2 style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:clamp(38px,4.4vw,60px); line-height:1.02; color:#2b2632;">We'd Love To Know What You Think</h2>
+      <p style="margin:0; font-size:16.5px; line-height:1.7; color:#5f4e58; font-weight:300;">Kindly fill out the form below with all your feedback, suggestions, questions etc. If you would like to be part of the team or if  you would like to receive copy of the cards in your email then please contact us at <a href="mailto:smilecardforeveryone@gmail.com" style="color:#a62a7c;">smilecardforeveryone@gmail.com</a></p>
+    </div>
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; background:#fff; padding:clamp(24px,3vw,36px); border-radius:24px;">
+        <input required placeholder="First Name" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #eadbe5; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input placeholder="Last Name" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #eadbe5; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input required type="email" placeholder="Email" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #eadbe5; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input placeholder="Phone" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #eadbe5; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <textarea placeholder="Your feedback" rows="4" style="grid-column:1 / -1; font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #eadbe5; border-radius:12px; outline:none; resize:vertical;" style-focus="border-color:#cc3399;"></textarea>
+        <button type="submit" style="grid-column:1 / -1; justify-self:start; font:inherit; font-size:15px; font-weight:500; background:#cc3399; color:#fff; border:0; padding:15px 28px; border-radius:999px; cursor:pointer; transition:transform .2s ease, background .2s ease;" style-hover="transform:translateY(-2px); background:#b02a84;">Send Feedback</button>
+      </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid; place-items:center; background:#fff; padding:40px; border-radius:24px; text-align:center;">
+        <p style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-size:32px; color:#2b2632;">Thank you for you valuable feedback!</p>
+      </div>
+    </sc-if>
+  </section>
+</div>
+
+<dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { d: null, sent: false };
+  componentDidMount() { import('./site-data.js').then(d => this.setState({ d })); }
+  renderVals() {
+    const d = this.state.d;
+    const bgs = ['#ffffff', '#f3ecfb', '#e4f4f9', '#fbe8f3'];
+    return {
+      featured: d ? d.featuredTestimonial.text : '',
+      quotes: d ? d.testimonials.map((text, i) => ({ text, delay: (i % 3) * 100, style: { breakInside: 'avoid', margin: '0 0 ' + 'clamp(10px,2vw,24px)', padding: 'clamp(24px,2.6vw,32px)', borderRadius: 24, background: bgs[i % 4] } })) : [],
+      photos: d ? d.joyPhotos.map(id => d.img(id, 480, 360)) : [],
+      sent: this.state.sent, notSent: !this.state.sent,
+      onSubmit: e => { e.preventDefault(); this.setState({ sent: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

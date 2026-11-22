@@ -321,6 +321,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         name = file_slug(book_title_for(project)) + "-pages.zip"
         return Response(data, media_type="application/zip", headers={"Content-Disposition": f'attachment; filename="{name}"'})
 
+    # The student's redesigned SmileCard website, whose menu links to StoryBridge (and back).
+    site = Path(REPO_ROOT / "smilecard-site")
+    if site.is_dir():
+        app.mount("/smilecard", StaticFiles(directory=site, html=True), name="smilecard")
+
     frontend = Path(REPO_ROOT / "frontend" / "dist")
     if frontend.is_dir():
         app.mount("/", StaticFiles(directory=frontend, html=True), name="frontend")

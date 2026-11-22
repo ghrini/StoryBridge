@@ -232,3 +232,38 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
     - A typed request ("On page 3, his friend's name is spelled Tommie, not Tommy. Also add that they always shared a pack of gum.") changed only page 3. Its 2 new sentences were marked "changed", the gum sentence showed "From a message you sent", and step 05 locked again with the PREVIEW stamp back.
   - Checked at 1440 px (chat stays beside the pages while scrolling) and 375 px (no sideways scrolling).
   - Not tested: screen readers, and a request that adds or removes pages through the real AI (covered only by unit tests).
+
+### 015 — 2026-11-22 — StoryBridge as a page of the redesigned SmileCard website
+
+- **Student decision:** the student redesigned the SmileCard website and shared it as a zip ("SmileCard homepage redesign.zip"). They asked to use that design and add StoryBridge to it as a new page.
+- **Where the design came from:** the website files (`smilecard-site/`), the logo, the smiling-card friends, and the mountain photo are from the student's zip. _How they were made, and with what tools, is for the student to record here._
+- **Claude suggested/generated:**
+  - **In the website:** a "StoryBridge" item in the menus of `PageHero.dc.html` (used by every sub-page) and `SmileCard Home v7.dc.html`, plus an `index.html` that opens the home page. Only the final pages were copied, not the older home-page versions or screenshots.
+  - **In StoryBridge:** the banner was rebuilt to look like the site's `PageHero`: the mountain photo, the SmileCard logo and menu with StoryBridge marked as the current page, and a "More" menu.
+    - `SmileCardArt.jsx` holds the logo and friends, copied from the redesign's code. It replaces Claude's earlier stand-in `CardBuddy` drawings.
+    - `SiteFooter.jsx` copies the site's footer.
+    - New colours and fonts (Pacifico and Patrick Hand added; Chewy removed from the app screens only, not from the book).
+    - The "How it works" steps now describe reading together and asking for changes.
+  - **Server:** serves the website at `/smilecard/`, only to this computer.
+  - **Tests:** 2 new backend tests.
+- **Deliberately not copied:** the website's statistics (10,000 cards and so on) stay on the website's own home page and are not shown in StoryBridge.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - `pytest` 184 passed; `vitest` 9 passed; production build succeeded.
+  - In a browser at 1440 px:
+    - The app shows the photo banner, menu, friends, panels, and footer.
+    - "Home" in the app's menu opened the redesigned SmileCard home page. That page's "StoryBridge" item opened the app again, and the "Our Team" page's menu shows StoryBridge too.
+  - At 375 px: no sideways scrolling, and the "More" menu stays on screen.
+  - Not tested: screen readers, and the website pages without internet (they need it).
+
+### 016 — 2026-11-22 — Smoother scrolling
+
+- **Student report:** scrolling felt laggy ("is it too much animation?"), and the student asked for a fix on the SmileCard pages too.
+- **Claude suggested/generated:**
+  - **StoryBridge:** only the two mascots in the banner still bob; the other four stand still. Each mascot's shadow is now drawn on its own picture, and moving mascots get their own layer, so shadows are not redrawn on every frame. The see-through button no longer blurs the photo behind it.
+  - **SmileCard pages:** the same shadow change in `PageHero.dc.html` and `SmileCard Home v7.dc.html`. The look is unchanged.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Verification (real runs):**
+  - On the rebuilt page, only 2 elements are animated (both in the banner), and no shadow sits on a box around a moving mascot. The same holds for the SmileCard home and Our Team pages after reloading.
+  - Scrolling smoothness itself was **not measured**: the in-app browser was hidden, which slows pages down, so its timings would mean nothing. The student should judge it by scrolling.

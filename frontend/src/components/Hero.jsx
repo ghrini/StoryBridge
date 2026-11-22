@@ -1,45 +1,77 @@
-import CardBuddy from "./CardBuddy.jsx";
+import { FriendsDuo, SmileCardLogo } from "./SmileCardArt.jsx";
+
+/** The redesigned SmileCard website, served by this same computer at /smilecard/. */
+const SITE = "/smilecard/";
+const page = (file) => `${SITE}${encodeURIComponent(file)}.dc.html`;
+
+const MENU = [
+  { label: "Home", href: page("SmileCard Home v7") },
+  { label: "Card Gallery", href: page("Card Gallery") },
+  { label: "Volunteer", href: page("Volunteer Opportunities") },
+  { label: "Our Team", href: page("Our Team") },
+  { label: "StoryBridge", href: "#main", current: true },
+];
+
+const MORE = [
+  ["Beneficiaries", page("Beneficiaries")],
+  ["Volunteers", page("Volunteers")],
+  ["Senior Loneliness Awareness", page("Senior Loneliness Awareness")],
+  ["Testimonials", page("Testimonials")],
+];
 
 const STEPS = [
   ["01", "Record"],
   ["02", "Write"],
-  ["03", "Check"],
+  ["03", "Read together"],
   ["04", "Share"],
 ];
 
-/** The top of the page: a dusk-coloured banner with the menu, the headline, and the four steps. */
+/** The top of the page, in the SmileCard website's style: the mountain photo, the SmileCard menu (with
+ *  StoryBridge as one of its pages), the headline, and the four steps. */
 export default function Hero() {
   return (
     <header className="hero">
-      <nav className="nav" aria-label="Main">
-        <a className="brand" href="#main">
-          <CardBuddy size={30} color="#8a4fd0" face="happy" tilt={-8} />
-          <span className="brand-name">StoryBridge</span>
-          <span className="brand-by">by SmileCard</span>
+      <div className="hero-bar">
+        <a className="brand" href={page("SmileCard Home v7")}>
+          <SmileCardLogo size={56} />
+          <span className="brand-name">SmileCard</span>
+          <span className="visually-hidden"> home page</span>
         </a>
-        <ul className="nav-links">
-          <li>
-            <a href="#how">How it works</a>
-          </li>
-          <li>
-            <a href="#your-stories">Your stories</a>
-          </li>
-          <li>
-            <a href="#start">Start a story</a>
-          </li>
-        </ul>
-      </nav>
+        <nav aria-label="SmileCard">
+          <ul className="nav-links">
+            {MENU.map((item) => (
+              <li key={item.label}>
+                <a href={item.href} aria-current={item.current ? "page" : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <details className="nav-more">
+                <summary>More</summary>
+                <ul>
+                  {MORE.map(([label, href]) => (
+                    <li key={label}>
+                      <a href={href}>{label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-      <div className="hero-grid">
+      <div className="hero-body">
         <div className="hero-copy">
           <p className="eyebrow eyebrow-light">A SmileCard project · Stories from grandparents</p>
           <h1>
-            <span className="display">Their stories,</span>
-            <span className="display-sans">kept in a picture book.</span>
+            <span className="display">StoryBridge</span>
+            <span className="display-sans">their stories, kept in a picture book.</span>
           </h1>
           <p className="hero-lead">
-            Record a grandparent telling a memory. StoryBridge turns it into a simple picture book that you check,
-            fill with pictures, print, and share with family.
+            Record a grandparent telling a memory. StoryBridge turns it into a simple picture book that you read
+            together, fill with pictures, print, and share with family.
           </p>
           <div className="hero-actions">
             <a className="pill pill-white" href="#start">
@@ -50,12 +82,7 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="hero-art" aria-hidden="true">
-          <span className="hero-word hero-word-top">Story</span>
-          <CardBuddy className="buddy-back" color="#8a4fd0" face="happy" size={150} tilt={-12} />
-          <CardBuddy className="buddy-front" color="#3a6fe0" face="smile" size={168} tilt={9} />
-          <span className="hero-word hero-word-bottom">Book</span>
-        </div>
+        <FriendsDuo size={74} className="hero-duo" bobbing />
       </div>
 
       <ol className="hero-steps">

@@ -43,7 +43,7 @@ StoryBridge is a volunteer-assisted web app that turns a senior's recorded life 
   - **Saved drafts:** only reused for a matching transcript fingerprint.
 - **One-page design (2026-11-21, student's direction):**
   - **Layout:** the app copies the style of the student's SmileCard website, all on one page: hero, "How it works", the "Your stories" and "Start a new story" panels, and the open story below.
-  - **Look:** Instrument Serif and Outfit (from `@fontsource`, offline), pill buttons, lavender/white cards, and simple `CardBuddy` drawings that are not SmileCard's real art.
+  - **Look (updated 2026-11-22):** the student's SmileCard website redesign (`smilecard-site/`): mountain-photo banner, the SmileCard menu with StoryBridge as one of its pages, the real logo and smiling-card friends (`SmileCardArt.jsx`), the site's footer, and its fonts (Instrument Serif, Outfit, Pacifico, Patrick Hand, all from `@fontsource`, offline). The server also serves the redesigned site at `/smilecard/` (this computer only); its menus link to StoryBridge with `../`.
   - **Never** copy SmileCard's site statistics into StoryBridge.
 - **Ask for changes (2026-11-22, student's direction):** step 04 shows each page as it will read, with a chat box beside it (`StoryChat.jsx`, `POST /revise`, `revise_story` in `drafting.py`, the change prompt in `gemini.py`), one confirm button (`POST /confirm`), and `GET /ai-helper` to say whether the chat can be used. The chat history lives only in the browser.
 - **Page flipper (2026-11-21):** step 7 shows the book as an open book with 3D page turns (`BookViewer.jsx`, pictures from `/book-preview`). It works before review but stamps every page "PREVIEW"; downloads and sharing remain locked until every sentence is reviewed.

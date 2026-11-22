@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Pacifico&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+body { margin: 0; background: #faf7fc; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
+a { color: #1f93b5; }
+a:hover { color: #7a35a3; }
+</style>
+</helmet>
+<dc-import name="PageHero" current="more" kicker="Beneficiaries" title="Who we" subtitle="have helped" intro="Below is a list of a few Senior centers that have supported our project and continue to use the cards. Many of the centers have multiple communities throughout the US, and cards have been shared with all of their communities. The residents look forward to the continuous pouring of love and joy through these cards/letters." hint-size="100%,560px"></dc-import>
+
+<div style="padding:0 clamp(10px,2vw,24px);">
+  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(48px,7vw,96px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:36px;">
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:20px;">
+      <h2 style="margin:0; font-weight:400; line-height:1.02; color:#2b2632;"><span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(38px,4.6vw,64px);">Senior communities</span> <span style="display:block; font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(28px,3.4vw,46px); letter-spacing:-0.03em;">across the US</span></h2>
+      <div style="display:flex; gap:32px;">
+        <div style="display:grid;"><span style="font-family:'Instrument Serif', serif; font-size:56px; line-height:1; color:#2b2632;">220</span><span style="font-size:13px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#8a8094;">Beneficiaries</span></div>
+        <div style="display:grid;"><span style="font-family:'Instrument Serif', serif; font-size:56px; line-height:1; color:#2b2632;">3</span><span style="font-size:13px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#8a8094;">Countries</span></div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:10px;">
+      <sc-for list="{{ list }}" as="b" hint-placeholder-count="12">
+        <a href="{{ b.href }}" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:12px; padding:16px 18px; border-radius:16px; background:#faf7fc; color:#2b2632; text-decoration:none; font-size:15.5px; line-height:1.35; transition:transform .2s ease, background .2s ease;" style-hover="transform:translateY(-2px); background:#f1e8fa; color:#7a35a3;">
+          <span style="flex-shrink:0; width:10px; height:10px; border-radius:50%; background:{{ b.dot }};"></span>
+          <span>{{ b.name }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+</div>
+
+<dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { d: null };
+  componentDidMount() { import('./site-data.js').then(d => this.setState({ d })); }
+  renderVals() {
+    const d = this.state.d;
+    const dots = ['#c0399f', '#2f6fd6', '#23a3c6', '#8e3fb5'];
+    const list = d ? d.beneficiaries.map(([name, href], i) => ({ name, href: href || undefined, dot: dots[i % 4] })) : [];
+    return { list };
+  }
+}
+</script>
+</body>
+</html>

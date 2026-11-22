@@ -62,7 +62,8 @@ export default function NewProjectForm({ onCreate, busy }) {
           <li>It is turned into text on this computer too.</li>
           <li>
             Only if the storyteller specifically agrees, the written text (never the audio) may be sent to
-            Google&rsquo;s Gemini AI service to help draft the storybook. Otherwise nothing is sent anywhere.
+            Google&rsquo;s Gemini AI service to help draft the storybook and make the changes you ask for. Otherwise
+            nothing is sent anywhere.
           </li>
           <li>
             While this program is running, anyone on the same Wi-Fi who scans a QR code in the printed book can play

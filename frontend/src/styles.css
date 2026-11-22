@@ -1,21 +1,23 @@
-/* StoryBridge — one page, in the SmileCard website style: dusk-gradient banner, rounded white cards,
-   italic serif headlines with a round sans, small spaced-out labels, and pill buttons.
+/* StoryBridge — a page of the SmileCard website, in the student's redesign of it: the mountain-photo banner,
+   rounded white cards on a pale lavender page, italic serif headlines with a light round sans, small spaced-out
+   labels, pill buttons, and the smiling-card friends.
    Accessibility stays first: 20 px text, strong contrast, big targets, visible focus. */
 
 :root {
-  --ink: #231a3b;          /* headings */
-  --text: #4a4561;         /* body text: about 8:1 on white */
-  --purple: #6a3fb0;       /* labels: about 6.9:1 on white */
-  --purple-deep: #4a2a86;  /* main buttons */
-  --magenta: #b52a84;      /* pink buttons: about 5.3:1 with white */
-  --teal: #1f7aa3;         /* blue buttons: about 4.8:1 with white */
+  --ink: #2b2632;          /* headings */
+  --text: #3a3542;         /* body text: about 11:1 on white */
+  --muted: #5e5668;        /* small print: about 6.6:1 on white */
+  --purple: #7a35a3;       /* labels and main buttons: about 7:1 with white */
+  --purple-deep: #62298a;  /* main buttons when pressed or hovered */
+  --magenta: #cc3399;      /* pink buttons: about 4.7:1 with white */
+  --teal: #1b7d9a;         /* blue buttons: about 4.8:1 with white */
   --danger: #a3214f;
-  --page: #f6f3fb;         /* lavender page */
+  --page: #faf7fc;         /* pale lavender page */
   --card: #ffffff;
-  --line: #e6dff0;
-  --blue-soft: #e5f2f8;
-  --pink-soft: #fbe8f2;
-  --lavender-soft: #f1ebfa;
+  --line: #e9e1f2;
+  --blue-soft: #e4f4f9;
+  --pink-soft: #fbe8f3;
+  --lavender-soft: #f3ecfb;
   --serif: "Instrument Serif", Georgia, serif;
   --sans: "Outfit", "Segoe UI", Arial, sans-serif;
   font-size: 20px;
@@ -124,11 +126,11 @@ main:focus {
 }
 
 .eyebrow-blue {
-  color: #1d6a8f;
+  color: #1b7d9a;
 }
 
 .eyebrow-pink {
-  color: #a12474;
+  color: #a62a7c;
 }
 
 .step-label {
@@ -148,14 +150,25 @@ button,
   gap: 0.4rem;
   min-height: 3rem;
   padding: 0.55rem 1.5rem;
-  border: 2px solid var(--purple-deep);
+  border: 2px solid var(--purple);
   border-radius: 999px;
-  background: var(--purple-deep);
+  background: var(--purple);
   color: #ffffff;
   font: inherit;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+button:hover:not(:disabled),
+.pill:hover {
+  transform: translateY(-2px);
+}
+
+button:hover:not(:disabled):not(.secondary):not(.danger):not(.pill-pink):not(.pill-teal):not(.chat-example) {
+  background: var(--purple-deep);
+  border-color: var(--purple-deep);
 }
 
 button.secondary {
@@ -175,9 +188,23 @@ button.pill-teal {
   border-color: var(--teal);
 }
 
-button.pill-pink {
+button.pill-pink,
+.pill-pink {
   background: var(--magenta);
   border-color: var(--magenta);
+  color: #ffffff;
+}
+
+.pill-dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #ffffff;
+}
+
+.pill-dark:hover {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: #ffffff;
 }
 
 .pill-white {
@@ -283,175 +310,194 @@ code {
 
 /* --- page frame ---------------------------------------------------------------------------- */
 .site {
-  max-width: 78rem;
+  max-width: 66rem;
   margin: 0 auto;
-  padding: 1.25rem 1.25rem 2rem;
+  padding: 1.2rem 1.2rem 0;
 }
 
-/* --- the banner ---------------------------------------------------------------------------- */
+/* --- the banner: the SmileCard website's mountain photo, menu, and headline --------------------- */
 .hero {
   position: relative;
-  overflow: hidden;
-  padding: 1.5rem 3rem 0;
-  border-radius: 2rem;
+  padding: 0 3rem;
+  border-radius: 1.6rem;
   color: #ffffff;
   background:
-    radial-gradient(120% 60% at 75% 0%, rgba(255, 196, 206, 0.45), transparent 60%),
-    linear-gradient(180deg, #b0598a 0%, #8b56a6 34%, #5d3f93 64%, #2e2166 100%);
+    linear-gradient(180deg, rgba(40, 18, 60, 0.2) 0%, rgba(40, 18, 60, 0.14) 45%, rgba(30, 16, 60, 0.6) 100%),
+    url("./assets/hero-mountains.jpg") center 62% / cover no-repeat,
+    #6b4ea6; /* while the photo loads */
 }
 
-/* layered hills, like the SmileCard dusk photo */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 46%;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 120 C150 70 280 115 410 85 C560 50 690 110 840 80 C980 52 1090 92 1200 70 V300 H0Z' fill='%236b4ea6' fill-opacity='.45'/%3E%3Cpath d='M0 175 C170 140 310 172 470 150 C640 126 770 168 940 146 C1070 130 1150 150 1200 142 V300 H0Z' fill='%23493590' fill-opacity='.6'/%3E%3Cpath d='M0 228 C190 205 330 226 520 210 C700 195 860 222 1030 206 C1110 199 1170 205 1200 202 V300 H0Z' fill='%23302268' fill-opacity='.75'/%3E%3C/svg%3E")
-    bottom / 100% 100% no-repeat;
-  pointer-events: none;
-}
-
-.hero > * {
-  position: relative;
-  z-index: 1;
-}
-
-.nav {
+.hero-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.6rem 1.2rem;
+  padding: 1.1rem 0;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
   color: #ffffff;
   text-decoration: none;
 }
 
+.smilecard-logo {
+  flex-shrink: 0;
+}
+
 .brand-name {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.9rem;
+  padding-bottom: 0.2rem;
+  font-family: "Pacifico", cursive;
+  font-size: 1.3rem;
   line-height: 1;
-}
-
-.brand-name-dark {
-  color: var(--ink);
-  font-size: 1.2rem;
-}
-
-.brand-by {
-  align-self: flex-end;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  opacity: 0.9;
+  text-shadow: 0 2px 12px rgba(60, 20, 80, 0.3);
 }
 
 .nav-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 2rem;
+  align-items: center;
+  gap: 0 0.4rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-more summary {
+  display: block;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
   color: #ffffff;
+  font-size: 0.8rem;
   font-weight: 500;
   text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.nav-links a:hover {
-  text-decoration: underline;
+.nav-links a:hover,
+.nav-more summary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.22);
 }
 
-.hero-grid {
+.nav-links a[aria-current="page"] {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.nav-more {
+  position: relative;
+}
+
+.nav-more summary {
+  list-style: none;
+}
+
+.nav-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-more summary::after {
+  content: " ▾";
+}
+
+.nav-more ul {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 20;
+  min-width: 13rem;
+  margin: 0.3rem 0 0;
+  padding: 0.4rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  box-shadow: 0 14px 36px rgba(80, 40, 120, 0.18);
+  list-style: none;
+}
+
+.nav-more ul a {
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
+  color: var(--text);
+  white-space: normal;
+}
+
+.nav-more ul a:hover {
+  transform: none;
+  background: var(--lavender-soft);
+  color: var(--purple);
+}
+
+.hero-body {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  align-items: center;
-  gap: 2rem;
-  padding: 3.5rem 0 2rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1.5rem;
+  padding: clamp(2rem, 6vw, 4.5rem) 0 2rem;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  max-width: 38rem;
+}
+
+.hero-copy .eyebrow {
+  margin: 0;
 }
 
 .hero h1 {
+  margin: 0;
   color: #ffffff;
-  margin: 0 0 1rem;
+  font-weight: 400;
+  line-height: 0.98;
+  text-shadow: 0 4px 30px rgba(70, 20, 90, 0.35);
 }
 
 .hero h1 .display {
   font-size: clamp(3rem, 7vw, 5.2rem);
-  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .hero h1 .display-sans {
-  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  margin-top: 0.06em;
+  font-size: clamp(1.6rem, 3.6vw, 3.1rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
 }
 
 .hero-lead {
-  max-width: 34rem;
-  margin: 0 0 1.75rem;
+  max-width: 32rem;
+  margin: 0.3rem 0 0.6rem;
   color: #ffffff;
-  font-size: 1.05rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  text-shadow: 0 1px 10px rgba(40, 16, 60, 0.55);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
+  gap: 0.6rem;
 }
 
-.hero-art {
-  position: relative;
-  height: 20rem;
-}
-
-.hero-art .card-buddy {
-  position: absolute;
-  filter: drop-shadow(0 18px 24px rgba(28, 16, 60, 0.35));
-}
-
-.buddy-back {
-  left: 14%;
-  top: 14%;
-}
-
-.buddy-front {
-  left: 42%;
-  top: 6%;
-}
-
-.hero-word {
-  position: absolute;
-  z-index: 2; /* in front of the cards */
-  font-family: "Chewy", var(--sans);
-  font-size: 3.4rem;
-  color: #ffffff;
-  text-shadow: 0 4px 14px rgba(28, 16, 60, 0.35);
-}
-
-.hero-word-top {
-  left: 2%;
-  top: -10%;
-  transform: rotate(-8deg);
-}
-
-.hero-word-bottom {
-  right: 4%;
-  bottom: -2%;
-  transform: rotate(-6deg);
+.hero-duo {
+  padding-bottom: 0.2rem;
 }
 
 .hero-steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin: 1.5rem 0 0;
-  padding: 1.25rem 0 2rem;
+  margin: 0;
+  padding: 1.3rem 0 1.6rem;
   border-top: 1px solid rgba(255, 255, 255, 0.35);
   list-style: none;
 }
@@ -459,23 +505,62 @@ code {
 .hero-step-number {
   display: block;
   font-family: var(--serif);
-  font-size: 3.4rem;
+  font-size: clamp(2.2rem, 4.4vw, 3rem);
   line-height: 1;
 }
 
 .hero-step-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+/* --- the smiling-card friends ------------------------------------------------------------------- */
+.friends-duo {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+/* Each friend's shadow is drawn with its own picture, once. A bobbing friend is moved as a ready-made
+   picture (its own layer), so the browser never has to redraw shadows while you scroll. */
+.friends-duo svg,
+.peeking-friend svg {
+  filter: drop-shadow(0 8px 12px rgba(30, 10, 60, 0.3));
+}
+
+.bob {
+  animation: bob 2.4s ease-in-out infinite alternate;
+  will-change: translate;
+}
+
+.tilt-left {
+  rotate: -7deg;
+}
+
+.tilt-right {
+  rotate: 7deg;
+  animation-duration: 2.8s;
+  animation-delay: 0.4s;
+}
+
+@keyframes bob {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -6px;
+  }
 }
 
 /* --- white rounded sections ------------------------------------------------------------------ */
 .section-card,
 .workspace {
-  margin-top: 1.5rem;
+  margin-top: 1.2rem;
   padding: 3rem;
-  border-radius: 2rem;
+  border-radius: 1.6rem;
   background: var(--card);
 }
 
@@ -505,23 +590,15 @@ code {
   height: auto;
 }
 
-.why-art .card-buddy {
+.why-duo {
   position: absolute;
-  bottom: -1.5rem;
-  filter: drop-shadow(0 10px 14px rgba(28, 16, 60, 0.18));
-}
-
-.why-buddy-left {
-  left: 8%;
-}
-
-.why-buddy-right {
-  left: 26%;
+  left: 1.2rem;
+  bottom: -1rem;
 }
 
 .why-steps {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 2.5rem;
   margin: 3rem 0 0;
   padding: 0;
@@ -535,6 +612,11 @@ code {
 
 .why-steps h3 {
   margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.why-steps p:not(.step-label) {
+  color: var(--muted);
 }
 
 /* --- the two coloured panels ----------------------------------------------------------------- */
@@ -542,14 +624,14 @@ code {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
 }
 
 .panel {
   position: relative;
   padding: 3rem 2.5rem 2.5rem;
-  border-radius: 2rem;
+  border-radius: 1.6rem;
 }
 
 .panel-pink {
@@ -565,11 +647,21 @@ code {
   font-size: clamp(2.1rem, 4vw, 3rem);
 }
 
-.panel-buddy {
+/* a friend peeking over the top of each panel, as on the SmileCard home page */
+.peeking-friend {
   position: absolute;
-  top: -1.4rem;
-  right: 1.5rem;
-  filter: drop-shadow(0 10px 14px rgba(28, 16, 60, 0.18));
+  top: -2.4rem;
+  right: 2.2rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.peek-young {
+  rotate: -10deg;
+}
+
+.peek-senior {
+  rotate: 10deg;
 }
 
 .panel .card {
@@ -1151,28 +1243,88 @@ button.chat-example {
   font-weight: 600;
 }
 
-/* --- footer ---------------------------------------------------------------------------------- */
+/* --- footer: the SmileCard website's closing band and links ------------------------------------- */
 .site-footer {
-  margin-top: 2rem;
-  padding: 1.5rem 0 4rem;
-  text-align: center;
-  font-size: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+.footer-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: clamp(2.4rem, 6vw, 4rem) clamp(1rem, 4.5vw, 3.2rem);
+  border-radius: 1.6rem;
+  background: radial-gradient(120% 100% at 20% 0%, #e6d6f7 0%, #f3ecfb 60%, #fdfbff 100%);
+}
+
+.footer-band h2 {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.footer-band .display {
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+}
+
+.footer-band .display-sans {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 1.4rem;
+  padding: 1.6rem clamp(1rem, 4.5vw, 3.2rem) 0.4rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.footer-row a {
+  color: var(--muted);
+}
+
+.footer-brand {
+  color: var(--purple);
+  font-family: "Pacifico", cursive;
+  font-size: 1.1rem;
+}
+
+.footer-copy {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.footer-note {
+  margin: 0.2rem 0 0;
+  padding: 0 clamp(1rem, 4.5vw, 3.2rem) 4.5rem; /* room for the message at the bottom of the screen */
+  color: var(--muted);
+  font-size: 0.75rem;
 }
 
 /* --- smaller screens ------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .hero {
-    padding: 1.25rem 1.5rem 0;
+    padding: 0 1.25rem;
   }
 
-  .hero-grid,
+  .hero-body,
   .why-head,
   .panels {
     grid-template-columns: 1fr;
   }
 
-  .hero-art {
-    height: 15rem;
+  .hero-duo {
+    justify-self: end;
+  }
+
+  .panels {
+    row-gap: 3rem; /* room for the friend peeking over the second panel */
   }
 
   .why-steps,
@@ -1197,19 +1349,20 @@ button.chat-example {
   }
 
   .brand-name {
-    font-size: 1.6rem;
-  }
-
-  .brand-by {
-    display: none;
+    font-size: 1.1rem;
   }
 
   .nav-links {
-    gap: 0.25rem 1.25rem;
+    gap: 0;
   }
 
-  .hero-word {
-    font-size: 2.4rem;
+  .nav-links a,
+  .nav-more summary {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .footer-copy {
+    margin-left: 0;
   }
 
   .hero-step-number {
@@ -1232,8 +1385,21 @@ button.chat-example {
 
 @media (prefers-reduced-motion: reduce) {
   .book,
-  .leaf {
+  .leaf,
+  button,
+  .pill,
+  .nav-links a {
     transition: none;
+  }
+
+  .bob {
+    animation: none;
+  }
+
+  button:hover:not(:disabled),
+  .pill:hover,
+  .nav-links a:hover {
+    transform: none;
   }
 
   html {

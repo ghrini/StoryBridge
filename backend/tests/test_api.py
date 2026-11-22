@@ -354,3 +354,15 @@ def test_recording_can_be_played_back_on_this_computer(client):
     client.post(f"/api/projects/{project_id}/audio", files={"file": ("story.wav", sine_wav_bytes(2.0))})
     audio = client.get(f"/api/projects/{project_id}/audio")
     assert audio.status_code == 200 and audio.headers["content-type"] == "audio/wav"
+
+
+def test_the_smilecard_website_is_served_next_to_the_app(client):
+    home = client.get("/smilecard/")
+    assert home.status_code == 200 and "SmileCard%20Home%20v7.dc.html" in home.text
+    page = client.get("/smilecard/PageHero.dc.html")
+    assert page.status_code == 200 and "label: 'StoryBridge', href: '../'" in page.text  # the site links to the app
+
+
+def test_the_smilecard_website_is_only_for_this_computer(settings):
+    phone = TestClient(create_app(settings), client=PHONE)
+    assert phone.get("/smilecard/").status_code == 403

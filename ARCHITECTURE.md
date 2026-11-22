@@ -45,7 +45,7 @@ Everything about one story is a single `project.json` in `data/projects/<id>/`, 
 ## Modules
 | Module | Job |
 |---|---|
-| `main.py` | HTTP API. Requests from other devices are refused except the voice-clip links. |
+| `main.py` | HTTP API. Requests from other devices are refused except the voice-clip links. Also serves the app, and the student's redesigned SmileCard website at `/smilecard/`. |
 | `services/record.py` | Consent gate, upload, ffmpeg normalization. |
 | `services/transcribe.py` | Local Whisper transcription. |
 | `services/structure.py` | Groups transcript lines into pages (used for the own-words book). |

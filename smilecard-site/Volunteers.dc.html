@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Pacifico&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+body { margin: 0; background: #faf7fc; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
+a { color: #1f93b5; }
+a:hover { color: #7a35a3; }
+</style>
+</helmet>
+<dc-import name="PageHero" current="more" kicker="Contributors" title="Thank you," subtitle="to every card maker" intro="Thank you to all the contributors for bringing joy and smiles to everyone. May all the beings in all the worlds have happiness and peace. Below is the list of our first contributors. Thank you to everyone who helped us to grow this organization!" hint-size="100%,560px"></dc-import>
+
+<div style="padding:0 clamp(10px,2vw,24px);">
+  <section style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(48px,7vw,96px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:36px;">
+    <h2 data-reveal="0" style="margin:0; font-weight:400; line-height:1.02; color:#2b2632;"><span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(38px,4.6vw,64px);">Our first</span> <span style="font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,3.8vw,52px); letter-spacing:-0.03em;">contributors</span></h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:20px;">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="6">
+        <div data-reveal="{{ p.delay }}" style="display:grid; grid-template-columns:96px minmax(0,1fr); gap:18px; align-items:start; padding:20px; border-radius:24px; background:#faf7fc; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 30px rgba(80,40,120,0.12);">
+          <img src="{{ p.src }}" alt="{{ p.name }}" loading="lazy" style="width:96px; height:120px; object-fit:cover; border-radius:18px; display:block; background:#f1e8fa;">
+          <div style="display:grid; gap:8px;">
+            <h3 style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:26px; line-height:1.05; color:{{ p.color }};">{{ p.name }}</h3>
+            <p style="margin:0; font-size:15px; line-height:1.6; color:#5e5668; font-weight:300;">{{ p.bio }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#e4f4f9; padding:clamp(48px,7vw,96px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:32px;">
+    <h2 data-reveal="0" style="margin:0; font-weight:400; line-height:1.02; color:#2b2632;"><span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(38px,4.6vw,64px);">Groups &amp;</span> <span style="font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,3.8vw,52px); letter-spacing:-0.03em;">organizations</span></h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:20px;">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+        <div data-reveal="{{ g.delay }}" style="display:grid; gap:16px; align-content:start; padding:20px 20px 28px; border-radius:24px; background:#fff;">
+          <img src="{{ g.src }}" alt="{{ g.name }}" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:16px; display:block; background:#eef7fa;">
+          <h3 style="margin:0 8px; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:28px; color:#1b7d9a;">{{ g.name }}</h3>
+          <p style="margin:0 8px; font-size:15px; line-height:1.65; color:#3f4e55; font-weight:300;">{{ g.bio }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+
+<dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { d: null };
+  componentDidMount() { import('./site-data.js').then(d => this.setState({ d })); }
+  renderVals() {
+    const d = this.state.d;
+    if (!d) return { people: [], groups: [] };
+    const colors = ['#c0399f', '#1f93b5', '#7a35a3'];
+    return {
+      people: d.contributors.map(([name, bio, id], i) => ({ name, bio, src: d.img(id, 240, 300), color: colors[i % 3], delay: (i % 3) * 120 })),
+      groups: d.groups.map(([name, bio, id], i) => ({ name, bio, src: d.img(id, 640, 360), delay: i * 120 })),
+    };
+  }
+}
+</script>
+</body>
+</html>

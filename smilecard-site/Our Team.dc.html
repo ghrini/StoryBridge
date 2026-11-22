@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Pacifico&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+body { margin: 0; background: #faf7fc; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
+a { color: #1f93b5; }
+a:hover { color: #7a35a3; }
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8e3fb5"></rect><rect x="34" y="28" width="32" height="44" rx="4" fill="#fff"></rect><path d="M42 44 q3 -3 6 0 M52 44 q3 -3 6 0 M43 54 q7 7 14 0" fill="none" stroke="#2b2632" stroke-width="2.5" stroke-linecap="round"></path></svg></template>
+</helmet>
+<dc-import name="PageHero" current="team" kicker="Our team" title="The people" subtitle="behind every smile" intro="This global pandemic has created new and unique situations. Bring a simple smile onto the isolated faces of patients to ignite a sweet joy in them, from the comfort of our homes. These cards and pieces of artwork will be accessible to thousands of patients in need." hint-size="100%,560px"></dc-import>
+
+<div style="padding:0 clamp(10px,2vw,24px);">
+  <section style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(48px,7vw,96px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:clamp(56px,7vw,88px);">
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+      <div style="display:grid; gap:28px;">
+        <div data-reveal="0" style="display:flex; align-items:baseline; gap:14px; border-bottom:1px solid #eee6f4; padding-bottom:16px;">
+          <h2 style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:clamp(34px,3.8vw,52px); line-height:1; color:#2b2632;">{{ g.group }}</h2>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr)); gap:clamp(24px,3vw,40px);">
+          <sc-for list="{{ g.people }}" as="p" hint-placeholder-count="2">
+            <div data-reveal="{{ p.delay }}" style="display:grid; gap:14px; align-content:start;">
+              <div style="width:150px; height:190px; border-radius:999px; overflow:hidden; background:#f1e8fa; box-shadow:0 0 0 6px #fff, 0 0 0 7px #e6d6f7; transition:transform .35s cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-6px) rotate(-2deg);">
+                <div role="img" aria-label="{{ p.name }}" style="width:100%; height:100%; background:#f1e8fa {{ p.bg }} center/cover no-repeat;"></div>
+              </div>
+              <div style="display:grid; gap:2px;">
+                <h3 style="margin:0; font-size:21px; font-weight:500; color:#2b2632;">{{ p.name }}</h3>
+                <span style="font-size:13px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:{{ p.color }};">{{ p.role }}</span>
+              </div>
+              <p style="margin:0; font-size:15px; line-height:1.65; color:#5e5668; font-weight:300;">{{ p.bio }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <a data-reveal="0" href="https://forms.gle/mCuVu9THoPggwdUC6" style="justify-self:start; background:#2b2632; color:#fff; text-decoration:none; font-size:15px; font-weight:500; padding:16px 28px; border-radius:999px; transition:transform .2s ease, background .2s ease;" style-hover="transform:translateY(-2px); background:#7a35a3; color:#fff;">Click to see which leadership positions are open ↗</a>
+  </section>
+</div>
+
+<dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const team = [
+  { group: 'Leadership', people: [
+    ['Shreyas Praveen Jella','President','I find ways to express emotions through images & detail-oriented photography. Art is a form of expression - from excitement to showing compassion - it is a universal language to speak your thoughts and I love to be able to contribute- One smile at a time!','2ec837_98506bb7a8b84affb6fa58a3a8cd39bd~mv2.jpg'],
+    ['Bavagna Sai Gunti','Vice President',"Hi! My name is Bavagna Sai, Bavi for short, and I am a junior at California Highschool. I have been drawing for over 5+ years and it's been a huge part of my life as a form of expression and so much more. From a very young age it brought me so much joy and I hope to create the same impact by sending handmade cards. :)",'2ec837_aae8ee6b461641d3a2c7ca31bc5d1fc9~mv2.jpg'],
+  ]},
+  { group: 'Founding Team', people: [
+    ['Apara','Founder','Love all Serve All, and Help ever Hurt Never are the teachings that Apara loves and follows. She is a freshman in college. During the Covid-19 pandemic, she co-founded SmileCard to provide an endless supply of loving cards for everyone. In her free time, she loves to bake, play instruments, sing and dance.','2acf69_19ae5557479c4dec9b80178fc9e33c9d~mv2.jpeg'],
+    ['Ghrini','Co-Founder','Loves all art forms including drawing, painting, singing, and dancing.. Wishes to make a difference in the lives of everyone in a fun creative way.','634fd7_c53855e9c58840d5a0452bfca4c9c7f4~mv2.jpg'],
+  ]},
+  { group: 'Directors of Operations', people: [
+    ['Sumedha Varanasi','Director of Operations',"Sumedha Varanasi is currently a junior at California High School. She loves to play badminton, listen to R&B songs, research random people on the internet, and read crime and mystery books in her free time. You can see her most of the time outside and writing supernatural stories but occasionally she'll be in her room and binging a good tv series. She joined SmileCard in hopes of making more people happy in the community during these times.",'87bfa3_5ef285467c3f4f669f27e1c1d316049c~mv2.jpeg'],
+    ['Shrinidhi Pola','Executive Director','Shrinidhi is a junior in high school. In her free time, she loves to bake, sing, watch movies, and spend time with her friends. She enjoys serving her community and hopes to help expand SmileCard so that it can spread joy to people all over the world!','87bfa3_ceefebbd597d405b8c994189e7abb6eb~mv2.jpg'],
+    ['Yashika Dintakurthi','Director of Operations','Yashika Dintakurthi is currently a junior at Dublin High School. She enjoys singing Carnatic music, painting, and occasionally writing poetry. She also loves listening to a variety of music. Yashika is passionate about serving her community and making a positive impact on the people around her.','87bfa3_6283fd27f81d44b68a618cce9eec9aa2~mv2.png'],
+  ]},
+  { group: 'Volunteer Outreach Coordinators', people: [
+    ['Saumya Mehru','Volunteer Outreach Coordinator','Saumya is currently a freshman at Kennedy High School. Her hobbies include reading, watching movies, running, and hanging out with friends. She enjoys giving back to her community, and joined SmileCard in hopes to do so.','333812_e95a238a10564b95a0fe8499588ce7f1~mv2.jpg'],
+    ['Klara Jones','Volunteer Outreach Coordinator',"Klara is a freshman attending Cypress High School. She is a part of her high school's cross country and track teams. She also enjoys reading and spending time with her family and friends in her free time. Klara joined SmileCard with the knowledge that words can truly make a difference in someone's day and she hopes to spread happiness through small acts of kindness.",'333812_f7e44aca3e574ad1858cad942c3916fb~mv2.jpg'],
+  ]},
+  { group: 'Social Media', people: [
+    ['Nardine Saleeb','Social Media Director','Nardine is currently a junior in high school. She enjoys baking, basketball, singing, reading, watching movies and spending time with people. She joined SmileCard to spread happiness in her community.','333812_c3b13f2ddb51492e9b1ce3ff2ef11b86~mv2.jpg'],
+    ['Srishravya Katukogula','Director of Social Media',"Sri is currently a junior at Dublin High School. She loves listening to R&B and in her free time you'll often find her baking and trying out new recipes (She loves trying out new cookie recipes!). She loves watching new shows and spending time with her friends but she also loves making her own jewelry. With SmileCard, she hopes to be able to make a positive impact on those around her!",'333812_827d7be27cc043b9bd87035f9a528e3d~mv2.jpeg'],
+    ['Manasvita Venkatesh','Director of Social Media','Manasvita is currently a junior at Foothill High School. She loves reading, watching movies and shows, drawing, and spending time with friends. She can usually be found with her nose in a book or obsessing over cars (or a variety of other things), and she’s passionate about changing the world for the better!','333812_5676f2a5fb6a47ccab7ccdb904a6e367~mv2.jpeg'],
+  ]},
+  { group: 'Website Directors', people: [
+    ['Anirudhsai Akuthota','Website Director','Anirudhsai is currently a sophomore at Mission San Jose High School. His interests are basketball, photography, art, and chess. One of his favorite books is Son Of Neptune in the Heroes of Olympus series by Rick Riordan.','333812_8878609dda214e26828ef08902384184~mv2.png'],
+    ['Veda Manchana','Website Director','Veda is a junior in high school. She enjoys coding, singing Carnatic music, writing calligraphy and drawing animated characters and sceneries. She likes to stay indoors and spend time with her family playing games and watching movies. She is very happy to join the SmileCard community and have the opportunity to spread the joy of togetherness.','333812_a45c3d48d5f646448fba7d8c826a3d52~mv2.jpg'],
+    ['Grace Bishara','Website Director','Grace is a freshmen in high school. Besides designing and coding websites, Grace enjoys songwriting and sustainable fashion. She is so excited about the impact that SmileCard is making on the lives of people in need.','333812_215d5c56fd794677871c2bde03335292~mv2.jpg'],
+    ['Chloe Fan','Website Director','Chloe is currently a freshman at Amador Valley High School. She enjoys playing tennis, baking, reading, shopping, and going out with friends! She also loves meeting new people, listening to music, and trying new things. Chloe is eager to help others around her and is passionate about giving back to her community, so she joined SmileCard to support and encourage positive change.','333812_156421854ad044e4bf35dec2dcad11ba~mv2.jpg'],
+  ]},
+];
+    const img = id => 'https://static.wixstatic.com/media/' + id + '/v1/fill/w_300,h_380,q_85/i.' + id.split('.').pop();
+    const colors = ['#c0399f', '#1f93b5', '#7a35a3'];
+    return {
+      groups: team.map((g, gi) => ({
+        group: g.group,
+        people: g.people.map(([name, role, bio, id], i) => ({ name, role, bio, bg: 'url(' + img(id) + ')', color: colors[(gi + i) % 3], delay: i * 120 })),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

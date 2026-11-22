@@ -1,4 +1,4 @@
-import CardBuddy from "./CardBuddy.jsx";
+import { FriendsDuo } from "./SmileCardArt.jsx";
 
 /** A small open book with picture boxes, drawn for the "How it works" section. */
 function BookSketch() {
@@ -33,8 +33,7 @@ export default function HowItWorks() {
         </div>
         <div className="why-art">
           <BookSketch />
-          <CardBuddy className="why-buddy-left" color="#c2318f" face="smile" size={58} tilt={-8} />
-          <CardBuddy className="why-buddy-right" color="#3a6fe0" face="happy" size={58} tilt={7} />
+          <FriendsDuo size={56} className="why-duo" />
         </div>
       </div>
 
@@ -56,12 +55,17 @@ export default function HowItWorks() {
           </p>
         </li>
         <li>
-          <p className="step-label">03 — Share</p>
-          <h3>Check it, then share it</h3>
+          <p className="step-label">03 — Read together</p>
+          <h3>Ask for changes in your own words</h3>
           <p>
-            You check every sentence, add photos or drawings, flip through the book, then print it or send it to
-            family.
+            Read it with them or their family. If something isn&rsquo;t right, just say so, like &ldquo;her
+            friend&rsquo;s name is Dotty&rdquo;, and the story is rewritten. Then confirm it.
           </p>
+        </li>
+        <li>
+          <p className="step-label">04 — Share</p>
+          <h3>Pictures, print, and share</h3>
+          <p>Add photos or drawings, flip through the book, then print it or send it to family.</p>
         </li>
       </ol>
     </section>

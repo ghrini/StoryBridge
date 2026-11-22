@@ -6,8 +6,13 @@ _Draft. To be completed before submission (reminiscence-therapy references and v
 - **Chewy** by Squid Art Factory, Apache License 2.0, see `assets/fonts/LICENSE-Chewy.txt`. Bundled in `assets/fonts/`. Used for the book's titles; chosen by the student as the closest free match to the "children's book" lettering they wanted. Downloaded unmodified from Google's official font repository (https://github.com/google/fonts).
 - **Arial** (Microsoft) for the book's story text, read from Windows' own font folder at run time and **not** bundled, because its license doesn't allow redistribution. On computers without Arial the PDF uses Helvetica, which looks the same.
 - Earlier versions used Lora and Playfair Display; they were removed on 2026-11-21.
-- **App screens** (not the book) use **Instrument Serif** (SIL Open Font License) for headlines, **Outfit** (SIL Open Font License) for text, and **Chewy** for the playful words. All three are installed locally from the `@fontsource` npm packages, so the app needs no internet. They were picked to match the SmileCard website's style.
-- The smiling-card characters in the app are simple drawings made in code, inspired by SmileCard's mascots; they are not SmileCard's original artwork.
+- **App screens** (not the book) use **Instrument Serif**, **Outfit**, **Pacifico** (the SmileCard name), and **Patrick Hand** (the handwriting in the logo), all SIL Open Font License, installed locally from the `@fontsource` npm packages, so the app needs no internet. They are the fonts of the student's SmileCard website redesign.
+
+## SmileCard website and artwork
+- `smilecard-site/` holds the student's redesign of the SmileCard website (from a zip the student shared on 2026-11-22). Claude added a "StoryBridge" item to its menus (`PageHero.dc.html`, `SmileCard Home v7.dc.html`) and an `index.html` that opens the home page, and moved the bobbing mascots' shadows onto the mascots themselves so scrolling is smoother (same look); the rest is unchanged. Older home-page versions and screenshots from the zip were not copied.
+- Its pages run on the design's own `support.js`, which loads React, ReactDOM, and Babel from unpkg.com, and they load fonts from Google Fonts and pictures from smilecard.org, so they need internet.
+- The SmileCard logo and the smiling-card friends in the app (`SmileCardArt.jsx`) are copied from that redesign's code.
+- **Mountain photo** (`hero-mountains.jpg`): from the redesign. _Source and license: to be confirmed by the student before publishing._
 
 ## Models and services
 - **Whisper** speech-recognition models (OpenAI), run locally through `faster-whisper` (SYSTRAN) using the `Systran/faster-whisper-small` CTranslate2 conversion. Licenses to verify and list here.
