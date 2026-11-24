@@ -267,3 +267,50 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
 - **Verification (real runs):**
   - On the rebuilt page, only 2 elements are animated (both in the banner), and no shadow sits on a box around a moving mascot. The same holds for the SmileCard home and Our Team pages after reloading.
   - Scrolling smoothness itself was **not measured**: the in-app browser was hidden, which slows pages down, so its timings would mean nothing. The student should judge it by scrolling.
+
+### 017 — 2026-11-22 — StoryBridge page for the public website, and packaging it for Wix
+
+- **Student request:** put the redesigned look on the Wix site with StoryBridge added.
+- **Claude suggested/generated:**
+  - **`smilecard-site/StoryBridge.dc.html`:** an information page about StoryBridge (how it works, privacy, what is in a book), built from the redesign's shared banner and footer. All of its wording is Claude's.
+  - **`scripts/build_wix_site.py`:** copies the website to `build/wix-site`, points the StoryBridge menu item at that page (the app only runs on a volunteer's computer), and makes a zip. `build/` was added to `.gitignore`.
+  - **PDF copies** of the nine pages in `build/` (not in the repository), made on 2026-11-22 from the earlier design.
+- **Not done:** nothing was published. smilecard.org was only read, never changed. An attempt to upload the redesign as a separate Wix site was refused by Wix (403).
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):** the script ran and wrote its zip. The PDFs were looked at as small previews, and the outside links were listed in the files but not opened one by one.
+
+### 018 — 2026-11-24 — Newer version of the SmileCard redesign
+
+- **Student request:** the student shared a newer zip of the redesign ("SmileCard homepage redesign (1).zip") and asked to use it, starting from the Our Team page.
+- **Where the design came from:** the zip, exported from Claude Design. _How the student made it there is for the student to record here._ The new hills drawing (`assets/hero-hills.svg`) carries an embedded Anthropic content credential saying Claude provided the file and may have created or changed it. The credential was kept.
+- **Claude did:**
+  - Replaced the ten changed page files with the zip's versions: Our Team (now five people, with no biographies), Home, Card Gallery, Volunteer Opportunities, Beneficiaries, Volunteers, Senior Loneliness Awareness, Testimonials, the shared banner, and the shared footer. The zip showed the whole site restyled, not only Our Team.
+  - Put the StoryBridge menu item back into `PageHero.dc.html` and `SmileCard Home v7.dc.html`, because the new files do not have it.
+  - Moved `StoryBridge.dc.html` to the new colours.
+- **No longer needed:** the shadow fix from entry 016 on the website pages. The new design does not show those moving mascots.
+- **Not changed:** the StoryBridge app's own screens, which still use the earlier look and the mountain photo.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - `pytest` 184 passed; `scripts/build_wix_site.py` ran. The frontend was not changed, so its tests were not run again.
+  - In a browser: all nine pages were looked at with a 1440 px wide window (Our Team to the bottom, the others in part), with no error messages on the pages checked for them (Our Team and the last page opened).
+  - At 375 px: no sideways scrolling on any of the nine pages. Our Team, Home, and StoryBridge were also looked at.
+  - Not tested: scrolling smoothness, screen readers, and real phones.
+
+### 019 — 2026-11-24 — StoryBridge app restyled to match the newer website
+
+- **Student request:** restyle the app to match the new website design, and save it to GitHub.
+- **Claude suggested/generated:**
+  - **Banner (`Hero.jsx`):** across the whole window with the hills drawing (an unchanged copy, with its content credential) instead of the mountain photo, whose copy was removed from the app. The tint over it is darker and bluer than the website's, so the small white words are easier to read.
+  - **Footer (`SiteFooter.jsx`):** the website's closing band and dark footer, plus StoryBridge's privacy line.
+  - **Colours (`styles.css`):** the new blue and lilac palette, with darker edges on form fields and quiet buttons.
+  - **Removed:** the smiling-card friends and the bobbing animation, because the new design does not use them. Only the logo is left in `SmileCardArt.jsx`.
+  - **Fix:** words in empty picture boxes were being cut off; the boxes now grow to fit.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - `pytest` 184 passed; `vitest` 9 passed; production build succeeded.
+  - In a headless browser at 1440 px and 375 px: no sideways scrolling, no page errors, and nothing animated on load; the Gram demo story opened. Screenshots were looked at in part.
+  - Banner words against the brightest pixel behind them, measured with the words hidden: at least 4.69:1 at both sizes (4.5:1 is the usual minimum for small text).
+  - Not tested: scrolling smoothness, screen readers, keyboard-only use, and real phones.

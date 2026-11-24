@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Pacifico&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
-body { margin: 0; background: #faf7fc; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #eef3fb; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
 a { color: #1f93b5; }
 a:hover { color: #7a35a3; }
 </style>
@@ -19,6 +19,21 @@ a:hover { color: #7a35a3; }
 <dc-import name="PageHero" current="gallery" kicker="Free to download · print · share" title="Card Gallery" subtitle="cards made with love" intro="Every card here was made by a volunteer. Senior centers, hospitals and families can download and print them for free." hint-size="100%,520px"></dc-import>
 
 <div style="padding:0 clamp(10px,2vw,24px);">
+  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#dbe7f8; padding:clamp(28px,3.5vw,44px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:22px;">
+    <h2 style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:clamp(30px,3.2vw,42px); line-height:1; color:#2b2632;">How to download</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:16px;">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+        <div style="display:flex; align-items:center; gap:14px; background:#fff; border-radius:20px; padding:16px 18px;">
+          <span style="flex-shrink:0; width:44px; height:44px; border-radius:50%; background:#23a3c6; color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:600;">{{ st.n }}</span>
+          <div style="display:grid; gap:2px;">
+            <span style="font-size:17px; font-weight:600; color:#2b2632;">{{ st.title }}</span>
+            <span style="font-size:14.5px; line-height:1.45; color:#4c5a60;">{{ st.text }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
   <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(40px,6vw,80px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:32px;">
     <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px;">
       <div style="display:flex; flex-wrap:wrap; gap:8px;">
@@ -27,9 +42,9 @@ a:hover { color: #7a35a3; }
         </sc-for>
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:8px;">
-        <a href="https://www.smilecard.org/new-cards" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #e2d8ec; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">Recent Cards ↗</a>
-        <a href="https://www.smilecard.org/all-cards" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #e2d8ec; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">All Cards ↗</a>
-        <a href="https://www.smilecard.org/trinity-school" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #e2d8ec; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">Jacob's Heart ↗</a>
+        <a href="https://www.smilecard.org/new-cards" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #d5ddee; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">Recent Cards ↗</a>
+        <a href="https://www.smilecard.org/all-cards" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #d5ddee; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">All Cards ↗</a>
+        <a href="https://www.smilecard.org/trinity-school" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #d5ddee; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">Jacob's Heart ↗</a>
       </div>
     </div>
     <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="2">
@@ -40,7 +55,7 @@ a:hover { color: #7a35a3; }
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
           <sc-for list="{{ sec.cards }}" as="c" hint-placeholder-count="6">
-            <a href="{{ c.full }}" target="_blank" rel="noopener" download="" aria-label="Download card" style="position:relative; display:block; border-radius:18px; overflow:hidden; background:#f3ecfb; aspect-ratio:1/1; transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;" style-hover="transform:translateY(-6px) rotate(-1.5deg); box-shadow:0 14px 30px rgba(80,40,120,0.2);">
+            <a href="{{ c.full }}" target="_blank" rel="noopener" download="" aria-label="Download card" style="position:relative; display:block; border-radius:18px; overflow:hidden; background:#e6ecf8; aspect-ratio:1/1; transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;" style-hover="transform:translateY(-6px) rotate(-1.5deg); box-shadow:0 14px 30px rgba(80,40,120,0.2);">
               <img src="{{ c.src }}" alt="Volunteer card" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
               <span style="position:absolute; right:10px; bottom:10px; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.92); color:#2b2632; display:flex; align-items:center; justify-content:center; font-size:15px; box-shadow:0 2px 8px rgba(0,0,0,0.12);">↓</span>
             </a>
@@ -50,18 +65,6 @@ a:hover { color: #7a35a3; }
     </sc-for>
   </section>
 
-  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#e4f4f9; padding:clamp(40px,6vw,80px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:32px;">
-    <h2 style="margin:0; font-weight:400; line-height:1.02; color:#2b2632;"><span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(36px,4.4vw,60px);">How to download</span> <span style="font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,3.6vw,50px); letter-spacing:-0.03em;">cards</span></h2>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:clamp(20px,3vw,36px);">
-      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
-        <div data-reveal="{{ st.delay }}" style="display:grid; gap:10px; align-content:start; border-top:1px solid rgba(27,125,154,0.25); padding-top:22px;">
-          <span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:22px; color:#1b7d9a;">Step {{ st.n }}</span>
-          <p style="margin:0; font-size:16.5px; line-height:1.7; color:#3f4e55; font-weight:300;">{{ st.text }}</p>
-        </div>
-      </sc-for>
-    </div>
-    <p style="margin:0; font-size:17px; font-weight:500; color:#1b7d9a;">Anyone that submits more than 25 cards will be recognized as a star contributor!</p>
-  </section>
 </div>
 
 <dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
@@ -72,18 +75,22 @@ class Component extends DCLogic {
   componentDidMount() { import('./site-data.js').then(d => this.setState({ d })); }
   renderVals() {
     const d = this.state.d;
-    if (!d) return { chips: [], sections: [], steps: [] };
+    if (!d) return { chips: [], sections: [], steps: [{ n: 1, title: 'Pick a category', text: 'Use the buttons below to find cards you like.' }, { n: 2, title: 'Tap the ↓ button', text: 'The full-size card opens in a new tab.' }, { n: 3, title: 'Save and print', text: 'Right-click (or press and hold) and save the image.' }] };
     const cats = Object.keys(d.gallery);
     const chips = ['All', ...cats].map(c => {
       const on = this.state.cat === c;
       return { label: c, pick: () => this.setState({ cat: c }),
-        style: { font: 'inherit', fontSize: 14, fontWeight: 500, padding: '10px 18px', borderRadius: 999, cursor: 'pointer', border: on ? '1px solid #2b2632' : '1px solid #e2d8ec', background: on ? '#2b2632' : '#fff', color: on ? '#fff' : '#2b2632', transition: 'all .2s ease' } };
+        style: { font: 'inherit', fontSize: 14, fontWeight: 500, padding: '10px 18px', borderRadius: 999, cursor: 'pointer', border: on ? '1px solid #2b2632' : '1px solid #d5ddee', background: on ? '#2b2632' : '#fff', color: on ? '#fff' : '#2b2632', transition: 'all .2s ease' } };
     });
     const sections = cats.filter(c => this.state.cat === 'All' || this.state.cat === c).map(c => ({
       name: c + ' Cards', count: d.gallery[c].length + ' cards',
       cards: d.gallery[c].map(id => ({ src: d.img(id, 400, 400), full: d.full(id) })),
     }));
-    const steps = d.downloadSteps.map((text, i) => ({ n: i + 1, text, delay: i * 150 }));
+    const steps = [
+      { n: 1, title: 'Pick a category', text: 'Use the buttons below to find cards you like.' },
+      { n: 2, title: 'Tap the ↓ button', text: 'The full-size card opens in a new tab.' },
+      { n: 3, title: 'Save and print', text: 'Right-click (or press and hold) and save the image.' },
+    ];
     return { chips, sections, steps };
   }
 }

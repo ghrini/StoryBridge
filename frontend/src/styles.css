@@ -1,6 +1,6 @@
-/* StoryBridge — a page of the SmileCard website, in the student's redesign of it: the mountain-photo banner,
-   rounded white cards on a pale lavender page, italic serif headlines with a light round sans, small spaced-out
-   labels, pill buttons, and the smiling-card friends.
+/* StoryBridge — a page of the SmileCard website, in the student's redesign of it: a banner with the hills
+   drawing across the window, rounded white cards on a pale blue page, italic serif headlines with a light round
+   sans, small spaced-out labels, pill buttons, and a dark footer.
    Accessibility stays first: 20 px text, strong contrast, big targets, visible focus. */
 
 :root {
@@ -12,12 +12,13 @@
   --magenta: #cc3399;      /* pink buttons: about 4.7:1 with white */
   --teal: #1b7d9a;         /* blue buttons: about 4.8:1 with white */
   --danger: #a3214f;
-  --page: #faf7fc;         /* pale lavender page */
+  --page: #eef3fb;         /* pale blue page */
   --card: #ffffff;
-  --line: #e9e1f2;
-  --blue-soft: #e4f4f9;
-  --pink-soft: #fbe8f3;
-  --lavender-soft: #f3ecfb;
+  --line: #dde4f1;
+  --edge: #8193b8;         /* edges of fields and quiet buttons: about 3.1:1 on white */
+  --blue-soft: #dbe7f8;
+  --lilac-soft: #e8e3f4;
+  --mist: #e6ecf8;
   --serif: "Instrument Serif", Georgia, serif;
   --sans: "Outfit", "Segoe UI", Arial, sans-serif;
   font-size: 20px;
@@ -174,7 +175,7 @@ button:hover:not(:disabled):not(.secondary):not(.danger):not(.pill-pink):not(.pi
 button.secondary {
   background: var(--card);
   color: var(--ink);
-  border-color: #b9aed0;
+  border-color: var(--edge);
 }
 
 button.danger {
@@ -213,12 +214,6 @@ button.pill-pink,
   color: var(--ink);
 }
 
-.pill-ghost {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #ffffff;
-}
-
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -238,7 +233,7 @@ textarea {
   width: 100%;
   min-height: 3rem;
   padding: 0.45rem 0.8rem;
-  border: 2px solid #c9bedb;
+  border: 2px solid var(--edge);
   border-radius: 0.8rem;
   background: #ffffff;
   color: var(--ink);
@@ -304,7 +299,7 @@ legend {
 code {
   padding: 0.1rem 0.35rem;
   border-radius: 0.3rem;
-  background: var(--lavender-soft);
+  background: var(--mist);
   word-break: break-all;
 }
 
@@ -312,19 +307,19 @@ code {
 .site {
   max-width: 66rem;
   margin: 0 auto;
-  padding: 1.2rem 1.2rem 0;
+  padding: 0 1.2rem;
 }
 
-/* --- the banner: the SmileCard website's mountain photo, menu, and headline --------------------- */
+/* --- the banner: the SmileCard website's hills drawing, menu, and headline, from edge to edge --- */
 .hero {
   position: relative;
-  padding: 0 3rem;
-  border-radius: 1.6rem;
+  padding: 0 clamp(1rem, 4.5vw, 3.2rem);
   color: #ffffff;
+  /* a little darker than on the website, so the small white words stay easy to read */
   background:
-    linear-gradient(180deg, rgba(40, 18, 60, 0.2) 0%, rgba(40, 18, 60, 0.14) 45%, rgba(30, 16, 60, 0.6) 100%),
-    url("./assets/hero-mountains.jpg") center 62% / cover no-repeat,
-    #6b4ea6; /* while the photo loads */
+    linear-gradient(180deg, rgba(20, 48, 120, 0.46) 0%, rgba(34, 44, 116, 0.55) 45%, rgba(36, 18, 70, 0.6) 100%),
+    url("./assets/hero-hills.svg") center 62% / cover no-repeat,
+    #6b5f9e; /* while the picture loads */
 }
 
 .hero-bar {
@@ -383,11 +378,13 @@ code {
 .nav-links a:hover,
 .nav-more summary:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(24, 22, 72, 0.4);
 }
 
+/* a dark pill with a light edge: white words stay readable on it */
 .nav-links a[aria-current="page"] {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(24, 22, 72, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 }
 
 .nav-more {
@@ -429,16 +426,12 @@ code {
 
 .nav-more ul a:hover {
   transform: none;
-  background: var(--lavender-soft);
+  background: var(--mist);
   color: var(--purple);
 }
 
 .hero-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 1.5rem;
-  padding: clamp(2rem, 6vw, 4.5rem) 0 2rem;
+  padding: clamp(2rem, 7vw, 4.8rem) 0 2.4rem;
 }
 
 .hero-copy {
@@ -457,7 +450,7 @@ code {
   margin: 0;
   color: #ffffff;
   font-weight: 400;
-  line-height: 0.98;
+  line-height: 1.08;
   text-shadow: 0 4px 30px rgba(70, 20, 90, 0.35);
 }
 
@@ -467,7 +460,7 @@ code {
 }
 
 .hero h1 .display-sans {
-  margin-top: 0.06em;
+  margin-top: 0.16em;
   font-size: clamp(1.6rem, 3.6vw, 3.1rem);
   font-weight: 300;
   letter-spacing: -0.035em;
@@ -486,10 +479,6 @@ code {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-}
-
-.hero-duo {
-  padding-bottom: 0.2rem;
 }
 
 .hero-steps {
@@ -517,44 +506,6 @@ code {
   text-transform: uppercase;
 }
 
-/* --- the smiling-card friends ------------------------------------------------------------------- */
-.friends-duo {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.3rem;
-}
-
-/* Each friend's shadow is drawn with its own picture, once. A bobbing friend is moved as a ready-made
-   picture (its own layer), so the browser never has to redraw shadows while you scroll. */
-.friends-duo svg,
-.peeking-friend svg {
-  filter: drop-shadow(0 8px 12px rgba(30, 10, 60, 0.3));
-}
-
-.bob {
-  animation: bob 2.4s ease-in-out infinite alternate;
-  will-change: translate;
-}
-
-.tilt-left {
-  rotate: -7deg;
-}
-
-.tilt-right {
-  rotate: 7deg;
-  animation-duration: 2.8s;
-  animation-delay: 0.4s;
-}
-
-@keyframes bob {
-  from {
-    translate: 0 0;
-  }
-  to {
-    translate: 0 -6px;
-  }
-}
-
 /* --- white rounded sections ------------------------------------------------------------------ */
 .section-card,
 .workspace {
@@ -580,20 +531,10 @@ code {
   gap: 2rem;
 }
 
-.why-art {
-  position: relative;
-}
-
 .book-sketch {
   display: block;
   width: 100%;
   height: auto;
-}
-
-.why-duo {
-  position: absolute;
-  left: 1.2rem;
-  bottom: -1rem;
 }
 
 .why-steps {
@@ -634,8 +575,8 @@ code {
   border-radius: 1.6rem;
 }
 
-.panel-pink {
-  background: var(--pink-soft);
+.panel-lilac {
+  background: var(--lilac-soft);
 }
 
 .panel-blue {
@@ -645,23 +586,6 @@ code {
 .panel-title .display {
   display: inline;
   font-size: clamp(2.1rem, 4vw, 3rem);
-}
-
-/* a friend peeking over the top of each panel, as on the SmileCard home page */
-.peeking-friend {
-  position: absolute;
-  top: -2.4rem;
-  right: 2.2rem;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.peek-young {
-  rotate: -10deg;
-}
-
-.peek-senior {
-  rotate: 10deg;
 }
 
 .panel .card {
@@ -713,7 +637,7 @@ code {
   padding: 1.75rem 2rem;
   border: 1px solid var(--line);
   border-radius: 1.5rem;
-  background: #fcfbfe;
+  background: #f8faff;
 }
 
 .note,
@@ -721,7 +645,7 @@ code {
   margin: 1rem 0;
   padding: 0.9rem 1.25rem;
   border-radius: 1.2rem;
-  background: var(--lavender-soft);
+  background: var(--mist);
   color: var(--ink);
 }
 
@@ -808,9 +732,14 @@ code {
   justify-content: center;
   aspect-ratio: 1.55;
   overflow: hidden;
-  border: 3px dashed #b9aed0;
+  border: 3px dashed var(--edge);
   border-radius: 1.2rem;
   background: var(--page);
+}
+
+/* an empty box grows to fit its words instead of cutting them off */
+.picture-box:not(:has(img)) {
+  overflow: visible;
 }
 
 .picture-box img {
@@ -822,7 +751,7 @@ code {
 .picture-box.dragging {
   border-style: solid;
   border-color: var(--purple);
-  background: var(--lavender-soft);
+  background: var(--mist);
 }
 
 .picture-box-empty {
@@ -931,7 +860,7 @@ mark.changed {
 .fix-by-hand summary {
   display: inline-block;
   padding: 0.3rem 0.9rem;
-  border: 1px solid #b9aed0;
+  border: 1px solid var(--edge);
   border-radius: 999px;
   color: var(--purple-deep);
   font-size: 0.85rem;
@@ -981,7 +910,7 @@ mark.changed {
   padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 1.4rem;
-  background: var(--lavender-soft);
+  background: var(--mist);
 }
 
 .chat-title {
@@ -1056,7 +985,7 @@ button.chat-example {
   justify-content: flex-start;
   min-height: 0;
   padding: 0.45rem 0.9rem;
-  border: 1px dashed #b9aed0;
+  border: 1px dashed var(--edge);
   border-radius: 1rem;
   background: #ffffff;
   color: var(--ink);
@@ -1114,13 +1043,13 @@ button.chat-example {
   border-top: 1px solid var(--line);
 }
 
-/* --- page flipper: an open book on a soft lavender background ---------------------------------- */
+/* --- page flipper: an open book on a soft blue background ---------------------------------- */
 .book-stage {
   perspective: 2600px;
   padding: 2.5rem 1.25rem 3rem;
   overflow: hidden;
   border-radius: 1.5rem;
-  background: radial-gradient(ellipse at 50% 30%, #fbf9fe 0%, #ebe4f5 85%);
+  background: radial-gradient(ellipse at 50% 30%, #f6f9ff 0%, #d9e4f5 85%);
   cursor: pointer;
 }
 
@@ -1243,7 +1172,7 @@ button.chat-example {
   font-weight: 600;
 }
 
-/* --- footer: the SmileCard website's closing band and links ------------------------------------- */
+/* --- footer: the SmileCard website's closing band, then a dark footer from edge to edge ------------ */
 .site-footer {
   margin-top: 1.2rem;
 }
@@ -1256,7 +1185,7 @@ button.chat-example {
   gap: 1.2rem;
   padding: clamp(2.4rem, 6vw, 4rem) clamp(1rem, 4.5vw, 3.2rem);
   border-radius: 1.6rem;
-  background: radial-gradient(120% 100% at 20% 0%, #e6d6f7 0%, #f3ecfb 60%, #fdfbff 100%);
+  background: radial-gradient(120% 100% at 20% 0%, #c9d9f2 0%, #e6ecf8 60%, #f3f6fd 100%);
 }
 
 .footer-band h2 {
@@ -1275,56 +1204,104 @@ button.chat-example {
   letter-spacing: -0.03em;
 }
 
-.footer-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.7rem 1.4rem;
-  padding: 1.6rem clamp(1rem, 4.5vw, 3.2rem) 0.4rem;
-  color: var(--muted);
-  font-size: 0.75rem;
+.footer-dark {
+  margin-top: 1.2rem;
+  padding: clamp(1.8rem, 4vw, 2.8rem) max(clamp(1.2rem, 4.5vw, 3.2rem), calc(50% - 29.8rem));
+  padding-bottom: 4.5rem; /* room for the message at the bottom of the screen */
+  background: var(--ink);
+  color: #ffffff;
 }
 
-.footer-row a {
-  color: var(--muted);
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem 2rem;
+}
+
+.footer-columns nav {
+  flex: 1 1 9rem;
+  min-width: 0;
+}
+
+.footer-about {
+  flex: 1.6 1 13rem;
+  min-width: 0;
+}
+
+.footer-about p {
+  max-width: 34ch;
+  margin: 0.6rem 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.8rem;
 }
 
 .footer-brand {
-  color: var(--purple);
+  color: #ffffff;
   font-family: "Pacifico", cursive;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
 }
 
-.footer-copy {
-  margin-left: auto;
-  white-space: nowrap;
+.footer-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
-.footer-note {
-  margin: 0.2rem 0 0;
-  padding: 0 clamp(1rem, 4.5vw, 3.2rem) 4.5rem; /* room for the message at the bottom of the screen */
-  color: var(--muted);
+.footer-title-pink {
+  color: #f7a8d6;
+}
+
+.footer-title-blue {
+  color: #8fd6ea;
+}
+
+.footer-title-purple {
+  color: #c9a6f0;
+}
+
+.footer-columns ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-dark a {
+  display: inline-block;
+  padding: 0.2rem 0;
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.footer-dark a:hover {
+  text-decoration: underline;
+}
+
+.footer-dark a:focus-visible {
+  outline-color: #ffffff; /* the purple outline would be hard to see on the dark footer */
+}
+
+.footer-end {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 1.6rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.75rem;
 }
 
 /* --- smaller screens ------------------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .hero {
-    padding: 0 1.25rem;
-  }
-
-  .hero-body,
   .why-head,
   .panels {
     grid-template-columns: 1fr;
-  }
-
-  .hero-duo {
-    justify-self: end;
-  }
-
-  .panels {
-    row-gap: 3rem; /* room for the friend peeking over the second panel */
   }
 
   .why-steps,
@@ -1345,7 +1322,7 @@ button.chat-example {
 
 @media (max-width: 600px) {
   .site {
-    padding: 0.75rem 0.75rem 2rem;
+    padding: 0 0.75rem;
   }
 
   .brand-name {
@@ -1359,10 +1336,6 @@ button.chat-example {
   .nav-links a,
   .nav-more summary {
     padding: 0.35rem 0.5rem;
-  }
-
-  .footer-copy {
-    margin-left: 0;
   }
 
   .hero-step-number {
@@ -1390,10 +1363,6 @@ button.chat-example {
   .pill,
   .nav-links a {
     transition: none;
-  }
-
-  .bob {
-    animation: none;
   }
 
   button:hover:not(:disabled),

@@ -73,7 +73,7 @@ Create a story of kind "Computer-voice test", upload a clip, fill in step 2, and
 .\.venv\Scripts\python.exe -m pytest        # backend: 184 tests
 cd frontend; npm test                        # frontend: 9 tests
 ```
-Backend tests never call Google; a mock network is used. Counts are as of 2026-11-22.
+Backend tests never call Google; a mock network is used. Counts are as of 2026-11-24.
 
 ## Privacy decisions
 - **Recordings, transcripts, photos, and books stay on this computer** (`data/`, which is never committed to git).
@@ -85,7 +85,7 @@ Backend tests never call Google; a mock network is used. Counts are as of 2026-1
 
 ## Accessibility decisions
 - StoryBridge is one page of the SmileCard website (the student's redesign), all on one scroll:
-  - the SmileCard menu and mountain-photo banner
+  - the SmileCard menu and a banner with the hills drawing
   - "How it works"
   - "Your stories" and "Start a new story" side by side
   - the open story below

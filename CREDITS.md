@@ -9,10 +9,11 @@ _Draft. To be completed before submission (reminiscence-therapy references and v
 - **App screens** (not the book) use **Instrument Serif**, **Outfit**, **Pacifico** (the SmileCard name), and **Patrick Hand** (the handwriting in the logo), all SIL Open Font License, installed locally from the `@fontsource` npm packages, so the app needs no internet. They are the fonts of the student's SmileCard website redesign.
 
 ## SmileCard website and artwork
-- `smilecard-site/` holds the student's redesign of the SmileCard website (from a zip the student shared on 2026-11-22). Claude added a "StoryBridge" item to its menus (`PageHero.dc.html`, `SmileCard Home v7.dc.html`) and an `index.html` that opens the home page, and moved the bobbing mascots' shadows onto the mascots themselves so scrolling is smoother (same look); the rest is unchanged. Older home-page versions and screenshots from the zip were not copied.
+- `smilecard-site/` holds the student's redesign of the SmileCard website, exported from Claude Design (from a zip the student shared on 2026-11-22, updated from a newer zip on 2026-11-24). Claude added a "StoryBridge" item to its menus (`PageHero.dc.html`, `SmileCard Home v7.dc.html`), an `index.html` that opens the home page, and the `StoryBridge.dc.html` page; the rest is unchanged. Older home-page versions and screenshots from the zips were not copied.
 - Its pages run on the design's own `support.js`, which loads React, ReactDOM, and Babel from unpkg.com, and they load fonts from Google Fonts and pictures from smilecard.org, so they need internet.
-- The SmileCard logo and the smiling-card friends in the app (`SmileCardArt.jsx`) are copied from that redesign's code.
-- **Mountain photo** (`hero-mountains.jpg`): from the redesign. _Source and license: to be confirmed by the student before publishing._
+- The SmileCard logo in the app (`SmileCardArt.jsx`) is copied from that redesign's code.
+- **Hills drawing** (`hero-hills.svg`, on the website and in the app): from the 2026-11-24 redesign. It carries an embedded Anthropic content credential saying Claude provided the file and may have created or changed it; the credential was kept.
+- **Mountain photo** (`hero-mountains.jpg`): from the first redesign. Neither the website pages nor the app show it any more, but the file is still in `smilecard-site/assets/`. _Source and license: to be confirmed by the student before publishing._
 
 ## Models and services
 - **Whisper** speech-recognition models (OpenAI), run locally through `faster-whisper` (SYSTRAN) using the `Systran/faster-whisper-small` CTranslate2 conversion. Licenses to verify and list here.

@@ -1,4 +1,4 @@
-import { FriendsDuo, SmileCardLogo } from "./SmileCardArt.jsx";
+import { SmileCardLogo } from "./SmileCardArt.jsx";
 
 /** The redesigned SmileCard website, served by this same computer at /smilecard/. */
 const SITE = "/smilecard/";
@@ -26,8 +26,8 @@ const STEPS = [
   ["04", "Share"],
 ];
 
-/** The top of the page, in the SmileCard website's style: the mountain photo, the SmileCard menu (with
- *  StoryBridge as one of its pages), the headline, and the four steps. */
+/** The top of the page, in the SmileCard website's style: the hills drawing across the whole window, the
+ *  SmileCard menu (with StoryBridge as one of its pages), the headline, and the four steps. */
 export default function Hero() {
   return (
     <header className="hero">
@@ -77,12 +77,11 @@ export default function Hero() {
             <a className="pill pill-white" href="#start">
               Start a story <span aria-hidden="true">↘</span>
             </a>
-            <a className="pill pill-ghost" href="#your-stories">
+            <a className="pill pill-pink" href="#your-stories">
               Your stories <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
-        <FriendsDuo size={74} className="hero-duo" bobbing />
       </div>
 
       <ol className="hero-steps">

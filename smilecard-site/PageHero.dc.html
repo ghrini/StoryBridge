@@ -11,14 +11,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Pacifico&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
-body { margin: 0; background: #faf7fc; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; font-weight: 400; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #eef3fb; color: #3a3542; font-family: "Outfit", system-ui, sans-serif; font-weight: 400; text-wrap: pretty; -webkit-font-smoothing: antialiased; }
 a { color: #1f93b5; }
 a:hover { color: #7a35a3; }
 :focus-visible { outline: 2px solid #23a3c6; outline-offset: 3px; }
 </style>
 </helmet>
-<div style="padding:clamp(10px,2vw,24px) clamp(10px,2vw,24px) 0;">
-  <section style="max-width:1320px; margin:0 auto; border-radius:32px; background:linear-gradient(180deg, rgba(40,18,60,0.12) 0%, rgba(40,18,60,0.10) 50%, rgba(30,16,60,0.5) 100%), url('./assets/hero-mountains.jpg') center 62%/cover no-repeat; color:#fff; padding:0 clamp(20px,4.5vw,64px) clamp(40px,5vw,64px); box-sizing:border-box; position:relative; overflow:visible;">
+<div style="padding:0;">
+  <section style="margin:0; border-radius:0; background:linear-gradient(180deg, rgba(40,18,60,0.12) 0%, rgba(40,18,60,0.10) 50%, rgba(30,16,60,0.5) 100%), url('./assets/hero-hills.svg?v=3') center 62%/cover no-repeat; color:#fff; padding:0 clamp(20px,4.5vw,64px) clamp(40px,5vw,64px); box-sizing:border-box; position:relative; overflow:visible;">
     <header style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px 24px; padding:22px 0;">
       <a href="SmileCard%20Home%20v7.dc.html" style="display:flex; align-items:center; gap:8px; text-decoration:none;">
         <svg viewBox="0 0 100 100" width="56" height="56" aria-hidden="true" style="display:block; flex-shrink:0;">
@@ -36,7 +36,7 @@ a:hover { color: #7a35a3; }
             <sc-if value="{{ n.isOpen }}" hint-placeholder-val="{{ false }}">
               <div style="position:absolute; top:100%; left:0; min-width:230px; background:#fff; border-radius:16px; box-shadow:0 14px 36px rgba(80,40,120,0.18); padding:8px; display:grid;">
                 <sc-for list="{{ n.items }}" as="s" hint-placeholder-count="3">
-                  <a href="{{ s.href }}" style="color:#3a3542; text-decoration:none; font-size:15px; font-weight:500; padding:11px 14px; border-radius:10px;" style-hover="background:#f3ecfb; color:#7a35a3;">{{ s.label }}</a>
+                  <a href="{{ s.href }}" style="color:#3a3542; text-decoration:none; font-size:15px; font-weight:500; padding:11px 14px; border-radius:10px;" style-hover="background:#e6ecf8; color:#7a35a3;">{{ s.label }}</a>
                 </sc-for>
               </div>
             </sc-if>
@@ -47,15 +47,14 @@ a:hover { color: #7a35a3; }
     <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:24px; padding-top:clamp(40px,7vw,96px);">
       <div data-reveal="0" style="display:flex; flex-direction:column; gap:18px; max-width:760px;">
         <span style="font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#fff;">{{ kicker }}</span>
-        <h1 style="margin:0; font-weight:400; line-height:0.98; text-shadow:0 4px 30px rgba(70,20,90,0.25);">
+        <h1 style="margin:0; font-weight:400; line-height:1.08; text-shadow:0 4px 30px rgba(70,20,90,0.25);">
           <span style="display:block; font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(48px,7vw,104px); letter-spacing:-0.02em;">{{ title }}</span>
-          <span style="display:block; font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,4.2vw,62px); letter-spacing:-0.035em; margin-top:0.06em;">{{ subtitle }}</span>
+          <span style="display:block; font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,4.2vw,62px); letter-spacing:-0.035em; margin-top:0.16em;">{{ subtitle }}</span>
         </h1>
         <sc-if value="{{ intro }}" hint-placeholder-val="{{ true }}">
           <p style="margin:6px 0 0; font-size:clamp(16px,1.4vw,18.5px); line-height:1.65; font-weight:300; color:rgba(255,255,255,0.94); max-width:60ch;">{{ intro }}</p>
         </sc-if>
       </div>
-      <div style="display:flex; align-items:flex-end; gap:6px; padding-bottom:4px;">{{ duo }}</div>
     </div>
   </section>
 </div>
@@ -129,11 +128,9 @@ class Component extends DCLogic {
       isOpen: !!m.items && this.state.menu === i,
       open: () => this.setState({ menu: i }),
     }));
-    // The shadow sits on each moving friend (not on a box around them), so it is not redrawn on every frame.
-    const shadow = 'drop-shadow(0 10px 18px rgba(30,10,60,0.35))';
-    const duo = h('div', { 'aria-hidden': true, style: { display: 'flex', alignItems: 'flex-end', gap: 6 } },
-      h('div', { 'data-bob': '', style: { transform: 'rotate(-7deg)', filter: shadow, willChange: 'transform' } }, this.char(true, 58)),
-      h('div', { 'data-bob': '', style: { transform: 'rotate(7deg)', filter: shadow, willChange: 'transform' } }, this.char(false, 58)));
+    const duo = h('div', { 'aria-hidden': true, style: { display: 'flex', alignItems: 'flex-end', gap: 6, filter: 'drop-shadow(0 10px 18px rgba(30,10,60,0.35))' } },
+      h('div', { 'data-bob': '', style: { transform: 'rotate(-7deg)' } }, this.char(true, 58)),
+      h('div', { 'data-bob': '', style: { transform: 'rotate(7deg)' } }, this.char(false, 58)));
     return {
       nav, duo,
       kicker: this.props.kicker ?? '', title: this.props.title ?? '', subtitle: this.props.subtitle ?? '', intro: this.props.intro ?? '',

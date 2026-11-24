@@ -33,3 +33,6 @@ frontend/dist/
 Thumbs.db
 .vscode/
 .idea/
+
+# --- built website for Wix (made by scripts/build_wix_site.py) ---
+build/

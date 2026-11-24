@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Hero from "./components/Hero.jsx";
 import HowItWorks from "./components/HowItWorks.jsx";
 import NewProjectForm from "./components/NewProjectForm.jsx";
-import { PeekingFriend } from "./components/SmileCardArt.jsx";
 import StatusBar from "./components/StatusBar.jsx";
 import SiteFooter from "./components/SiteFooter.jsx";
 import StoryList from "./components/StoryList.jsx";
@@ -58,14 +57,13 @@ export default function App() {
       <a className="skip-link" href="#main">
         Skip to main content
       </a>
+      <Hero />
       <div className="site">
-        <Hero />
         <main id="main" tabIndex={-1}>
           <HowItWorks />
 
           <section className="panels" aria-label="Your stories and a new story">
-            <div className="panel panel-pink" id="your-stories">
-              <PeekingFriend young />
+            <div className="panel panel-lilac" id="your-stories">
               <p className="eyebrow eyebrow-pink">Your stories</p>
               <h2 className="panel-title">
                 <span className="display">Pick up where</span> <span className="display">you left off.</span>
@@ -74,7 +72,6 @@ export default function App() {
             </div>
 
             <div className="panel panel-blue" id="start">
-              <PeekingFriend />
               <p className="eyebrow eyebrow-blue">For families and volunteers</p>
               <h2 className="panel-title">
                 <span className="display">Start a new story</span> <span className="display">for someone you love.</span>
@@ -97,9 +94,8 @@ export default function App() {
             </section>
           )}
         </main>
-
-        <SiteFooter />
       </div>
+      <SiteFooter />
       <StatusBar status={status} />
     </>
   );
