@@ -45,7 +45,7 @@ Everything about one story is a single `project.json` in `data/projects/<id>/`, 
 ## Modules
 | Module | Job |
 |---|---|
-| `main.py` | HTTP API. Requests from other devices are refused except the voice-clip links. Also serves the app, and the student's redesigned SmileCard website at `/smilecard/`. |
+| `main.py` | HTTP API. Requests from other devices, or passed on by a web host or tunnel, are refused except the voice-clip links. Also serves the app, and the student's redesigned SmileCard website at `/smilecard/`. |
 | `services/record.py` | Consent gate, upload, ffmpeg normalization. |
 | `services/transcribe.py` | Local Whisper transcription. |
 | `services/structure.py` | Groups transcript lines into pages (used for the own-words book). |
@@ -57,7 +57,8 @@ Everything about one story is a single `project.json` in `data/projects/<id>/`, 
 | `services/book_preview.py` | Page pictures for the page flipper. |
 | `services/clips.py` | One MP3 per chapter for the QR codes. |
 | `services/book_export.py` | Page pictures for photo-book sites (pypdfium2). |
-| `frontend/` | React screens for each step, review, pictures, preview, and share. |
+| `frontend/` | React screens for each step, review, pictures, preview, and share. `npm run build:hosted` makes the public website's copy, which shows `HostedNotice.jsx` instead of the story tools and never calls the server. |
+| `vercel.json`, `.vercelignore` | The public website on Vercel: that copy at `/` and the SmileCard website at `/smilecard/`. The server is not deployed. |
 
 ## Safeguards, in order
 1. **Consent gate.** No audio is stored without consent, and withdrawal deletes everything.

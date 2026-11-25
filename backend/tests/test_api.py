@@ -366,3 +366,16 @@ def test_the_smilecard_website_is_served_next_to_the_app(client):
 def test_the_smilecard_website_is_only_for_this_computer(settings):
     phone = TestClient(create_app(settings), client=PHONE)
     assert phone.get("/smilecard/").status_code == 403
+
+
+@pytest.mark.parametrize("header", ["X-Forwarded-For", "X-Real-IP", "Forwarded", "X-Vercel-Id", "CF-Connecting-IP"])
+def test_a_request_passed_on_by_a_proxy_never_counts_as_this_computer(settings, header):
+    # A web host or tunnel hands requests over from 127.0.0.1, whoever the visitor really is.
+    local = TestClient(create_app(settings), client=LOCAL)
+    project_id = new_demo_project(local)
+    passed_on = {header: "127.0.0.1"}
+    for path in ("/api/projects", f"/api/projects/{project_id}", "/api/config", "/smilecard/"):
+        assert local.get(path, headers=passed_on).status_code == 403, path
+    assert local.post("/api/projects", json={}, headers=passed_on).status_code == 403
+    assert local.delete(f"/api/projects/{project_id}", headers=passed_on).status_code == 403
+    assert local.get(f"/api/projects/{project_id}").status_code == 200  # still there, and still open to this computer

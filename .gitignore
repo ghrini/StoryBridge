@@ -34,5 +34,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# --- Vercel command-line tool ---
+.vercel/
+smilecard-site/.vite/
+
 # --- built website for Wix (made by scripts/build_wix_site.py) ---
 build/

@@ -1,3 +1,5 @@
+import { HOSTED } from "../services/hosted.js";
+
 /** A small open book with picture boxes, drawn for the "How it works" section. */
 function BookSketch() {
   return (
@@ -40,7 +42,8 @@ export default function HowItWorks() {
           <h3>Record a memory</h3>
           <p>
             With their permission, record a grandparent telling a story, like a typical day in high school. The
-            recording stays on this computer and is turned into text right here.
+            recording stays on {HOSTED ? "the volunteer\u2019s" : "this"} computer and is turned into text right{" "}
+            {HOSTED ? "there" : "here"}.
           </p>
         </li>
         <li>

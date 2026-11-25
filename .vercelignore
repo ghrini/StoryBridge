@@ -1,0 +1,11 @@
+# Only these go to Vercel: the public StoryBridge page and the SmileCard website. Recordings (data/), the speech
+# models, keys (.env), and the StoryBridge server stay off it. `vercel dev` follows this list too: without it, it
+# would hand out files from data/ to anyone on the Wi-Fi.
+/*
+!/vercel.json
+!/frontend
+!/smilecard-site
+.env*
+node_modules
+frontend/dist
+smilecard-site/.vite

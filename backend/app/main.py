@@ -32,6 +32,9 @@ from .services.storage import ProjectNotFound, ProjectStore
 from .services.transcribe import transcribe_project
 
 LOCAL_CLIENTS = {"127.0.0.1", "::1"}
+# Added by web hosts and tunnels (Vercel, Cloudflare, Tailscale Serve, ...). They pass requests on from
+# 127.0.0.1, so a request carrying one of these never counts as coming from this computer.
+PROXY_HEADERS = ("forwarded", "x-forwarded-for", "x-real-ip", "x-vercel-id", "cf-connecting-ip")
 PAGE_ID = r"(?:p|ch)\d+"  # "p3" = page 3 ("ch" ids are from books made before pages)
 CLIP_PATH = re.compile(rf"^/api/projects/[0-9a-f]{{8}}/clips/{PAGE_ID}\.mp3$")
 
@@ -69,7 +72,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.middleware("http")
     async def keep_private_data_on_this_computer(request: Request, call_next):
         client = request.client.host if request.client else ""
-        if client not in LOCAL_CLIENTS and not CLIP_PATH.match(request.url.path):
+        local = client in LOCAL_CLIENTS and not any(name in request.headers for name in PROXY_HEADERS)
+        if not local and not CLIP_PATH.match(request.url.path):
             return JSONResponse({"detail": "This is only available on the computer running StoryBridge."},
                                 status_code=403)
         return await call_next(request)

@@ -334,3 +334,21 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
 - **Student wrote:** nothing in this entry. **Student changed:** nothing.
 - **Student can explain independently:** _(student to fill in)_
 - **Verification:** a search for contest words finds only this log, the history note in `CLAUDE.md`, and unrelated uses of the words.
+
+### 022 — 2026-11-24 — Set up for Vercel (public website)
+
+- **Student request:** configure the repository to deploy on Vercel as a project with multiple services, starting from a `vercel.json` that Vercel suggested (FastAPI `backend` and Vite `frontend`), and confirm the details before finishing.
+- **Claude suggested/generated:**
+  - **`vercel.json`:** `frontend` at `/` and the SmileCard website as its own service at `/smilecard/` (the app's menus link there). The suggested `backend` service was left out, with reasons in `README.md`; no bindings, because no service calls another.
+  - **Public version of the StoryBridge page:** `hosted.js`, `HostedNotice.jsx`, and small wording switches. No upload form, and no calls to a server.
+  - **`.vercelignore`:** an allow-list.
+  - **Server fix (`main.py`):** requests that carry a proxy's headers no longer count as coming from this computer.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - The new proxy test failed in all 5 cases before the fix and passes after it. `pytest` 189 passed; `vitest` 9 passed; both builds succeeded.
+  - `vercel build` and `vercel dev --local` (CLI 65.8.0, a clean copy, no login): the output held only the two parts. In a headless browser all 11 addresses loaded with no page errors, failed requests (apart from the tab icon), or server calls; the StoryBridge page was also checked at 375 px.
+  - One fresh copy gave errors on `/smilecard/` because its local test server listened only on IPv6; the start commands now name 127.0.0.1, and two more fresh copies passed.
+  - Using dummy files, `vercel dev` handed out `data/` without `.vercelignore` and did not with it.
+  - Library size: 476 MB installed for Linux, Python 3.12.
+  - **Not tested:** a real deployment on Vercel (needs the student's account), and real phones.

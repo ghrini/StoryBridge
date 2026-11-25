@@ -1,6 +1,7 @@
+import { ASK_US, HOSTED } from "../services/hosted.js";
 import { SmileCardLogo } from "./SmileCardArt.jsx";
 
-/** The redesigned SmileCard website, served by this same computer at /smilecard/. */
+/** The redesigned SmileCard website, served next to StoryBridge at /smilecard/. */
 const SITE = "/smilecard/";
 const page = (file) => `${SITE}${encodeURIComponent(file)}.dc.html`;
 
@@ -74,11 +75,11 @@ export default function Hero() {
             together, fill with pictures, print, and share with family.
           </p>
           <div className="hero-actions">
-            <a className="pill pill-white" href="#start">
-              Start a story <span aria-hidden="true">↘</span>
+            <a className="pill pill-white" href={HOSTED ? "#how" : "#start"}>
+              {HOSTED ? "How it works" : "Start a story"} <span aria-hidden="true">↘</span>
             </a>
-            <a className="pill pill-pink" href="#your-stories">
-              Your stories <span aria-hidden="true">↗</span>
+            <a className="pill pill-pink" href={HOSTED ? ASK_US : "#your-stories"}>
+              {HOSTED ? "Ask us about it" : "Your stories"} <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>

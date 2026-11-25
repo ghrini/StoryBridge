@@ -70,7 +70,7 @@ Create a story of kind "Computer-voice test", upload a clip, fill in step 2, and
 
 ## Tests
 ```powershell
-.\.venv\Scripts\python.exe -m pytest        # backend: 184 tests
+.\.venv\Scripts\python.exe -m pytest        # backend: 189 tests
 cd frontend; npm test                        # frontend: 9 tests
 ```
 Backend tests never call Google; a mock network is used. Counts are as of 2026-11-24.
@@ -79,9 +79,23 @@ Backend tests never call Google; a mock network is used. Counts are as of 2026-1
 - **Recordings, transcripts, photos, and books stay on this computer** (`data/`, which is never committed to git).
 - **Only text is ever sent to the AI, never audio:** the transcript, plus the book's text and the volunteer's message when they ask for changes. A real storyteller's text is sent only if they specifically agreed **and** the key is declared a paid Google plan. Google may use text sent through free keys to improve its products, and people there may read it.
 - **On the Wi-Fi, a phone can reach only the voice clips** the QR codes link to. It cannot list projects, read transcripts, see photos, or download books.
+- **A request passed on by a web host or tunnel never counts as coming from this computer**, because those pass every visitor on from 127.0.0.1.
 - **Withdrawal deletes the whole project folder.**
 - **Health details, addresses, financial details, and other people's private information must stay out of the book.** The AI is told to leave them out, and the reviewer checks.
 - **The API key stays on the server.** It is never sent to the browser and never written into error messages.
+
+## Public website on Vercel
+`vercel.json` puts two parts on Vercel as one project:
+
+| Service | Folder | Address | What it is |
+|---|---|---|---|
+| `frontend` | `frontend/` | `/` | The StoryBridge page for visitors (`npm run build:hosted`). It explains StoryBridge and has no upload form and no server to call. |
+| `smilecard` | `smilecard-site/` | `/smilecard/` | The SmileCard website. |
+
+- **The StoryBridge server (`backend/`) is not on Vercel.** Recordings and stories are promised to stay on the volunteer's computer, and there are no logins. It also does not fit: its libraries are 476 MB for Linux (the limit is 500 MB) before ffmpeg and the speech model, uploads are limited to 4.5 MB, and it keeps stories as files on disk.
+- **No service calls another**, so there are no bindings.
+- **`.vercelignore` is an allow-list.** Only those two folders and `vercel.json` go to Vercel. Keep it: without it, `vercel dev` hands out files from `data/`.
+- **To test:** `npx vercel@65.8.0 dev --local --listen 127.0.0.1:3000`. On this Windows computer 66.6.0 stopped with a symlink permission error. Without `--listen`, other devices on the Wi-Fi can open it.
 
 ## Accessibility decisions
 - StoryBridge is one page of the SmileCard website (the student's redesign), all on one scroll:

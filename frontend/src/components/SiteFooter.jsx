@@ -1,3 +1,5 @@
+import { HOSTED } from "../services/hosted.js";
+
 /** The SmileCard website's closing band and dark footer (from the student's redesign), plus StoryBridge's
  *  privacy line. */
 const FORM = "https://docs.google.com/forms/d/e/1FAIpQLScbifU4qpK1Ve_Ozm_0r_g-85fLoYGNTssn-7Y0YbRWeX8-Dg/viewform";
@@ -60,7 +62,8 @@ export default function SiteFooter() {
             <span className="footer-brand">SmileCard</span>
             <p>Together we can bring a smile, one card at a time!</p>
             <p className="footer-note">
-              StoryBridge is a SmileCard project. Its recordings, stories, and pictures stay on this computer.
+              StoryBridge is a SmileCard project. Its recordings, stories, and pictures stay on{" "}
+              {HOSTED ? "the volunteer\u2019s" : "this"} computer.
             </p>
           </div>
           {COLUMNS.map(({ title, tone, links }) => (

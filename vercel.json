@@ -1,0 +1,28 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "framework": "vite",
+      "buildCommand": "npm run build:hosted",
+      "devCommand": "vite --mode hosted --host 127.0.0.1 --port $PORT"
+    },
+    "smilecard": {
+      "root": "smilecard-site",
+      "devCommand": "npx --prefix ../frontend vite --base /smilecard/ --host 127.0.0.1 --port $PORT"
+    }
+  },
+  "redirects": [
+    { "source": "/smilecard", "destination": "/smilecard/", "permanent": false }
+  ],
+  "rewrites": [
+    {
+      "source": "/smilecard/(.*)",
+      "destination": { "service": "smilecard", "path": "/$1" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "frontend" }
+    }
+  ]
+}
