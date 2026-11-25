@@ -317,9 +317,12 @@ code {
   color: #ffffff;
   /* a little darker than on the website, so the small white words stay easy to read */
   background:
+    /* deeper colours in the hills: this layer only adds saturation, so it does not make them lighter or darker */
+    linear-gradient(180deg, rgba(255, 0, 128, 0.1) 0%, rgba(255, 0, 128, 0.14) 45%, rgba(255, 0, 128, 0.2) 75%),
     linear-gradient(180deg, rgba(20, 48, 120, 0.46) 0%, rgba(34, 44, 116, 0.55) 45%, rgba(36, 18, 70, 0.6) 100%),
     url("./assets/hero-hills.svg") center 62% / cover no-repeat,
     #6b5f9e; /* while the picture loads */
+  background-blend-mode: saturation, normal, normal, normal;
 }
 
 .hero-bar {

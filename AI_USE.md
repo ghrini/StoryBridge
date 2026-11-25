@@ -352,3 +352,15 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
   - Using dummy files, `vercel dev` handed out `data/` without `.vercelignore` and did not with it.
   - Library size: 476 MB installed for Linux, Python 3.12.
   - **Not tested:** a real deployment on Vercel (needs the student's account), and real phones.
+
+### 023 — 2026-11-24 — More vibrant header hills
+
+- **Student request:** a little more vibrance in the header mountains; after seeing before-and-after pictures, commit it.
+- **Claude did:** added a colour layer over the hills in the headers (`PageHero.dc.html`, `SmileCard Home v7.dc.html`, `styles.css`) with the CSS `saturation` blend mode. A stronger first try was toned down. The drawing file is unchanged (same SHA-256), so its content credential is intact.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - `pytest` 189 passed; `vitest` 9 passed; local and hosted builds succeeded.
+  - In a headless browser at 1440 px and 375 px (home, Our Team, StoryBridge): no page errors and no sideways scrolling. Colour difference in the lower part of the header went from 36–53 to 59–79 (0–255 scale).
+  - White words against the brightest pixel behind them: StoryBridge 4.64:1 or better (was 4.69:1). The website's headers are as before: some words over the pale sky are as low as about 1.8:1, below the usual 4.5:1 minimum, and were **not** fixed.
+  - Not tested: scrolling smoothness, and browsers other than Edge.
