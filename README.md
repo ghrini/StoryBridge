@@ -122,4 +122,3 @@ Backend tests never call Google; a mock network is used. Counts are as of 2026-1
 - `CREDITS.md`: fonts, models, libraries, research.
 - `docs/CONSENT_FORM.md`: consent template.
 - `docs/VIDEO_PLAN.md`: plan for the 3-minute video.
-- `docs/SUBMISSION_ANSWERS.md`: notes for the submission.

@@ -326,3 +326,11 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
   - In a headless browser at 1440 px, the nine website pages and the app loaded with no page errors. The only failed request was the browser's own request for a tab icon, which the site does not have.
   - The rebuilt package has 15 files and none of them is the photo.
   - Not tested again: how the pages look, because only an unused file changed.
+
+### 021 — 2026-11-24 — Contest wording removed
+
+- **Student request:** StoryBridge is for SmileCard and is no longer a Congressional App Challenge entry; clean out the contest wording and save it.
+- **Claude did:** reworded the video permission in `docs/CONSENT_FORM.md` to name SmileCard (the permission is still only for a demo video); rewrote the contest parts of `CLAUDE.md`; deleted `docs/SUBMISSION_ANSWERS.md` (it held notes and questions, no answers); small wording in `README.md` and `CREDITS.md`. The consent and privacy rules were kept.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification:** a search for contest words finds only this log, the history note in `CLAUDE.md`, and unrelated uses of the words.

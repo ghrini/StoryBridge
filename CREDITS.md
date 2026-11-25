@@ -1,6 +1,6 @@
 # CREDITS
 
-_Draft. To be completed before submission (reminiscence-therapy references and volunteer illustrators, with their permission, still to add)._
+_Draft. Still to be completed (reminiscence-therapy references and volunteer illustrators, with their permission, still to add)._
 
 ## Fonts
 - **Chewy** by Squid Art Factory, Apache License 2.0, see `assets/fonts/LICENSE-Chewy.txt`. Bundled in `assets/fonts/`. Used for the book's titles; chosen by the student as the closest free match to the "children's book" lettering they wanted. Downloaded unmodified from Google's official font repository (https://github.com/google/fonts).

@@ -31,7 +31,7 @@ We would like to record you telling a few memories, about 5 to 10 minutes, and t
 | I agree a short storybook may be made from my memories. | ☐ | ☐ |
 | I agree the book may include codes that play my voice. | ☐ | ☐ |
 | I agree the written text (not my voice) may be sent to Google's Gemini AI service to help write the story. | ☐ | ☐ |
-| I agree my voice, name, photo, or words may be used in the project's demo video for the Congressional App Challenge. | ☐ | ☐ |
+| I agree my voice, name, photo, or words may be used in SmileCard's demo video about StoryBridge. | ☐ | ☐ |
 
 If recorded at a care facility: permission was given by ______________________ (name and role) on ____________.
 
