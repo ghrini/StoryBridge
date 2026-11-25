@@ -13,7 +13,7 @@ _Draft. To be completed before submission (reminiscence-therapy references and v
 - Its pages run on the design's own `support.js`, which loads React, ReactDOM, and Babel from unpkg.com, and they load fonts from Google Fonts and pictures from smilecard.org, so they need internet.
 - The SmileCard logo in the app (`SmileCardArt.jsx`) is copied from that redesign's code.
 - **Hills drawing** (`hero-hills.svg`, on the website and in the app): from the 2026-11-24 redesign. It carries an embedded Anthropic content credential saying Claude provided the file and may have created or changed it; the credential was kept.
-- **Mountain photo** (`hero-mountains.jpg`): from the first redesign. Neither the website pages nor the app show it any more, but the file is still in `smilecard-site/assets/`. _Source and license: to be confirmed by the student before publishing._
+- **Mountain photo** (`hero-mountains.jpg`): used by the first redesign and removed on 2026-11-24. Its source and license were never confirmed, and it is still in earlier commits, so do not reuse it without checking.
 
 ## Models and services
 - **Whisper** speech-recognition models (OpenAI), run locally through `faster-whisper` (SYSTRAN) using the `Systran/faster-whisper-small` CTranslate2 conversion. Licenses to verify and list here.

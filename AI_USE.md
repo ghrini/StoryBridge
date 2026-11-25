@@ -314,3 +314,15 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
   - In a headless browser at 1440 px and 375 px: no sideways scrolling, no page errors, and nothing animated on load; the Gram demo story opened. Screenshots were looked at in part.
   - Banner words against the brightest pixel behind them, measured with the words hidden: at least 4.69:1 at both sizes (4.5:1 is the usual minimum for small text).
   - Not tested: scrolling smoothness, screen readers, keyboard-only use, and real phones.
+
+### 020 — 2026-11-24 — Mountain photo removed
+
+- **Student request:** look at the site first, then remove the mountain photo and save to GitHub. The student was shown the site and then said to go ahead.
+- **Claude did:** deleted `smilecard-site/assets/hero-mountains.jpg`, which nothing used any more; updated `CREDITS.md`; rebuilt the website package for Wix (not stored in git) without it. The photo is still in earlier commits.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - `pytest` 184 passed; `vitest` 9 passed; production build succeeded.
+  - In a headless browser at 1440 px, the nine website pages and the app loaded with no page errors. The only failed request was the browser's own request for a tab icon, which the site does not have.
+  - The rebuilt package has 15 files and none of them is the photo.
+  - Not tested again: how the pages look, because only an unused file changed.
