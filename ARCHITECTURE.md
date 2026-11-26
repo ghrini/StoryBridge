@@ -59,6 +59,8 @@ Everything about one story is a single `project.json` in `data/projects/<id>/`, 
 | `services/book_export.py` | Page pictures for photo-book sites (pypdfium2). |
 | `frontend/` | React screens for each step, review, pictures, preview, and share. `npm run build:hosted` makes the public website's copy, which shows `HostedNotice.jsx` instead of the story tools and never calls the server. |
 | `vercel.json`, `.vercelignore` | The public website on Vercel: that copy at `/` and the SmileCard website at `/smilecard/`. The server is not deployed. |
+| `smilecard-site/api/feedback.py` | The live SmileCard website's only server code (a Vercel function): checks a feedback message and emails it to SmileCard. Stores nothing. |
+| `smilecard-site/cards-data.js`, `card-tools.js` | Every card from the old smilecard.org galleries (made by `scripts/fetch_smilecard_cards.py`), and the preview, download, and favourites helpers. |
 
 ## Safeguards, in order
 1. **Consent gate.** No audio is stored without consent, and withdrawal deletes everything.

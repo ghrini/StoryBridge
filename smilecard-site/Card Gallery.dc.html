@@ -34,64 +34,127 @@ a:hover { color: #7a35a3; }
     </div>
   </section>
 
-  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(40px,6vw,80px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:32px;">
-    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px;">
-      <div style="display:flex; flex-wrap:wrap; gap:8px;">
-        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="7">
-          <button type="button" onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button>
-        </sc-for>
-      </div>
-      <div style="display:flex; flex-wrap:wrap; gap:8px;">
-        <a href="https://www.smilecard.org/new-cards" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #d5ddee; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">Recent Cards ↗</a>
-        <a href="https://www.smilecard.org/all-cards" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #d5ddee; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">All Cards ↗</a>
-        <a href="https://www.smilecard.org/trinity-school" style="color:#2b2632; text-decoration:none; font-size:14px; font-weight:500; padding:10px 18px; border-radius:999px; border:1px solid #d5ddee; transition:transform .2s ease;" style-hover="transform:translateY(-2px); border-color:#7a35a3; color:#7a35a3;">Jacob's Heart ↗</a>
-      </div>
+  <section id="cards" data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fff; padding:clamp(40px,6vw,80px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:grid; gap:32px; scroll-margin-top:16px;">
+    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="11">
+        <button type="button" onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="{{ c.style }}">{{ c.label }}</button>
+      </sc-for>
     </div>
+    <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0; font-size:16px; color:#6f6679;">Loading cards…</p>
+    </sc-if>
+    <sc-if value="{{ noFavourites }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0; font-size:16.5px; line-height:1.6; color:#5f4e58;">No favourites yet. Tap the ♡ on any card to keep it here. Favourites are saved in this browser only.</p>
+    </sc-if>
     <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="2">
       <div style="display:grid; gap:18px;">
-        <div style="display:flex; align-items:baseline; gap:12px;">
+        <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:12px;">
           <h2 style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:clamp(30px,3.2vw,44px); color:#2b2632;">{{ sec.name }}</h2>
-          <span style="font-size:13px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#8a8094;">{{ sec.count }}</span>
+          <span style="font-size:13px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#6f6679;">{{ sec.count }}</span>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
           <sc-for list="{{ sec.cards }}" as="c" hint-placeholder-count="6">
-            <a href="{{ c.full }}" target="_blank" rel="noopener" download="" aria-label="Download card" style="position:relative; display:block; border-radius:18px; overflow:hidden; background:#e6ecf8; aspect-ratio:1/1; transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;" style-hover="transform:translateY(-6px) rotate(-1.5deg); box-shadow:0 14px 30px rgba(80,40,120,0.2);">
-              <img src="{{ c.src }}" alt="Volunteer card" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
-              <span style="position:absolute; right:10px; bottom:10px; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.92); color:#2b2632; display:flex; align-items:center; justify-content:center; font-size:15px; box-shadow:0 2px 8px rgba(0,0,0,0.12);">↓</span>
-            </a>
+            <div style="position:relative; border-radius:18px; overflow:hidden; background:#e6ecf8; aspect-ratio:1/1; transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;" style-hover="transform:translateY(-6px) rotate(-1.5deg); box-shadow:0 14px 30px rgba(80,40,120,0.2);">
+              <a href="{{ c.full }}" target="_blank" rel="noopener" aria-label="Open the full-size card" style="display:block; width:100%; height:100%;">
+                <img src="{{ c.src }}" alt="Card made by a SmileCard volunteer" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+              </a>
+              <button type="button" onClick="{{ c.toggle }}" aria-pressed="{{ c.fav }}" aria-label="{{ c.favLabel }}" title="{{ c.favLabel }}" style="{{ c.heartStyle }}">{{ c.heart }}</button>
+              <a href="{{ c.dl }}" download="" aria-label="Download this card" title="Download this card" style="position:absolute; right:10px; bottom:10px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.94); color:#2b2632; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:600; text-decoration:none; box-shadow:0 2px 8px rgba(0,0,0,0.14);" style-hover="background:#2b2632; color:#fff;">↓</a>
+            </div>
           </sc-for>
         </div>
+        <sc-if value="{{ sec.hasMore }}" hint-placeholder-val="{{ false }}">
+          <button type="button" onClick="{{ sec.more }}" style="justify-self:start; font:inherit; font-size:15px; font-weight:500; background:#2b2632; color:#fff; border:0; padding:14px 26px; border-radius:999px; cursor:pointer; transition:transform .2s ease;" style-hover="transform:translateY(-2px);">{{ sec.moreLabel }}</button>
+        </sc-if>
       </div>
     </sc-for>
   </section>
 
+  <section data-reveal="0" style="max-width:1320px; margin:clamp(10px,2vw,24px) auto 0; border-radius:32px; background:#fbe8f3; padding:clamp(32px,4.5vw,56px) clamp(20px,4.5vw,64px); box-sizing:border-box; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:24px;">
+    <div style="display:grid; gap:10px; max-width:640px;">
+      <h2 style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-weight:400; font-size:clamp(30px,3.2vw,42px); line-height:1.05; color:#2b2632;">Made a card? Add it to the gallery</h2>
+      <p style="margin:0; font-size:16.5px; line-height:1.6; color:#5f4e58;">Anyone who submits more than 25 cards will be recognized as a star contributor!</p>
+    </div>
+    <a href="{{ form }}" target="_blank" rel="noopener" style="background:#cc3399; color:#fff; text-decoration:none; font-size:15px; font-weight:600; padding:16px 28px; border-radius:999px; transition:transform .2s ease, background .2s ease;" style-hover="transform:translateY(-2px); background:#b02a84; color:#fff;">Submit cards ↗</a>
+  </section>
 </div>
 
 <dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScbifU4qpK1Ve_Ozm_0r_g-85fLoYGNTssn-7Y0YbRWeX8-Dg/viewform';
+const CATEGORIES = ['handmade', 'digital', 'nature', 'holiday', 'letters', 'religious'];
+const PAGE = 48;
+const PREVIEW = 12;
 class Component extends DCLogic {
-  state = { d: null, cat: 'All' };
-  componentDidMount() { import('./site-data.js').then(d => this.setState({ d })); }
+  state = { data: null, tools: null, view: '', shown: PAGE, favs: new Set() };
+  componentDidMount() {
+    Promise.all([import('./cards-data.js'), import('./card-tools.js')]).then(([data, tools]) => {
+      this.setState({ data, tools, favs: tools.loadFavourites() }, () => this.readHash(true));
+    });
+    this.onHash = () => this.readHash(true);
+    window.addEventListener('hashchange', this.onHash);
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); }
+  readHash(scroll) {
+    const key = decodeURIComponent(location.hash.slice(1));
+    const ok = key === 'favourites' || (this.state.data && key in this.state.data.sets);
+    this.setState({ view: ok ? key : '', shown: PAGE });
+    if (ok && scroll) setTimeout(() => { const el = document.getElementById('cards'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+  }
+  pick(key) {
+    if (key) { location.hash = key; return; }
+    history.pushState(null, '', location.pathname + location.search);
+    this.setState({ view: '', shown: PAGE });
+  }
+  tiles(ids) {
+    const { tools, favs } = this.state;
+    return ids.map(id => {
+      const fav = favs.has(id);
+      return {
+        src: tools.thumb(id), full: tools.full(id), dl: tools.download(id),
+        fav, heart: fav ? '♥' : '♡', favLabel: fav ? 'Remove from favourites' : 'Save to favourites',
+        toggle: () => this.setState({ favs: tools.toggled(this.state.favs, id) }),
+        heartStyle: { position: 'absolute', left: 10, bottom: 10, width: 36, height: 36, borderRadius: '50%', border: 0, cursor: 'pointer', font: 'inherit', fontSize: 18, lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: fav ? '#cc3399' : 'rgba(255,255,255,0.94)', color: fav ? '#fff' : '#cc3399', boxShadow: '0 2px 8px rgba(0,0,0,0.14)' },
+      };
+    });
+  }
   renderVals() {
-    const d = this.state.d;
-    if (!d) return { chips: [], sections: [], steps: [{ n: 1, title: 'Pick a category', text: 'Use the buttons below to find cards you like.' }, { n: 2, title: 'Tap the ↓ button', text: 'The full-size card opens in a new tab.' }, { n: 3, title: 'Save and print', text: 'Right-click (or press and hold) and save the image.' }] };
-    const cats = Object.keys(d.gallery);
-    const chips = ['All', ...cats].map(c => {
-      const on = this.state.cat === c;
-      return { label: c, pick: () => this.setState({ cat: c }),
+    const steps = [
+      { n: 1, title: 'Pick a collection', text: 'Recent cards, every card, or one category.' },
+      { n: 2, title: 'Tap ♡ to save it', text: 'Your favourites are kept in this browser under ♥ Favourites.' },
+      { n: 3, title: 'Tap ↓ to download', text: 'The full-size card saves to your device, ready to print.' },
+    ];
+    const { data, view, shown, favs } = this.state;
+    if (!data || !this.state.tools) return { steps, chips: [], sections: [], loading: true, noFavourites: false, form: FORM };
+    const keys = ['', 'recent', 'all', ...CATEGORIES, 'jacobs-heart', 'favourites'];
+    const label = k => k === '' ? 'Categories' : k === 'favourites' ? `♥ Favourites (${favs.size})` : data.labels[k];
+    const chips = keys.map(k => {
+      const on = view === k;
+      return { label: label(k), on, pick: () => this.pick(k),
         style: { font: 'inherit', fontSize: 14, fontWeight: 500, padding: '10px 18px', borderRadius: 999, cursor: 'pointer', border: on ? '1px solid #2b2632' : '1px solid #d5ddee', background: on ? '#2b2632' : '#fff', color: on ? '#fff' : '#2b2632', transition: 'all .2s ease' } };
     });
-    const sections = cats.filter(c => this.state.cat === 'All' || this.state.cat === c).map(c => ({
-      name: c + ' Cards', count: d.gallery[c].length + ' cards',
-      cards: d.gallery[c].map(id => ({ src: d.img(id, 400, 400), full: d.full(id) })),
-    }));
-    const steps = [
-      { n: 1, title: 'Pick a category', text: 'Use the buttons below to find cards you like.' },
-      { n: 2, title: 'Tap the ↓ button', text: 'The full-size card opens in a new tab.' },
-      { n: 3, title: 'Save and print', text: 'Right-click (or press and hold) and save the image.' },
-    ];
-    return { chips, sections, steps };
+    const count = n => n + (n === 1 ? ' card' : ' cards');
+    // "Handmade Cards", but "Letters", "Recent Cards" and "All Cards" as they are
+    const title = k => k === 'letters' || k === 'recent' || k === 'all' ? data.labels[k] : data.labels[k] + ' Cards';
+    let sections;
+    if (view === '') {
+      sections = CATEGORIES.map(k => ({
+        name: title(k), count: count(data.sets[k].length),
+        cards: this.tiles(data.sets[k].slice(0, PREVIEW)),
+        hasMore: data.sets[k].length > PREVIEW, moreLabel: `See all ${data.sets[k].length} ${title(k).toLowerCase()} →`,
+        more: () => this.pick(k),
+      }));
+    } else {
+      const ids = view === 'favourites' ? [...favs] : data.sets[view];
+      const name = view === 'favourites' ? 'Your favourites' : title(view);
+      sections = ids.length ? [{
+        name, count: count(ids.length), cards: this.tiles(ids.slice(0, shown)),
+        hasMore: ids.length > shown, moreLabel: `Show more cards (${ids.length - shown} left)`,
+        more: () => this.setState({ shown: shown + PAGE }),
+      }] : [];
+    }
+    return { steps, chips, sections, loading: false, noFavourites: view === 'favourites' && favs.size === 0, form: FORM };
   }
 }
 </script>

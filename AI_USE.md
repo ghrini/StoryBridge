@@ -364,3 +364,15 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
   - In a headless browser at 1440 px and 375 px (home, Our Team, StoryBridge): no page errors and no sideways scrolling. Colour difference in the lower part of the header went from 36–53 to 59–79 (0–255 scale).
   - White words against the brightest pixel behind them: StoryBridge 4.64:1 or better (was 4.69:1). The website's headers are as before: some words over the pale sky are as low as about 1.8:1, below the usual 4.5:1 minimum, and were **not** fixed.
   - Not tested: scrolling smoothness, and browsers other than Edge.
+
+### 024 — 2026-11-26 — Everything from the old smilecard.org on the new website
+- **Student request:** connect all the images, the forms (volunteer hours, leadership, submitting cards), downloading cards, the email contact and the testimonials form, "everything" from the original site; Vercel Pro.
+- **Claude did:** listed what the old site had and the new one lacked. Wrote `scripts/fetch_smilecard_cards.py` (makes `cards-data.js` from the old site's public galleries). Rebuilt the Card Gallery page (all 9 collections, 48 at a time, favourites, real downloads), added a Jacob's Heart page, pointed the menus at the new pages, put the two videos on their pages, added the service-hours form link and the card-submitting tips with their screenshots. Wrote `api/feedback.py` (a Vercel function that emails feedback) and its 19 tests, and connected the Testimonials form to it.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):**
+  - `pytest` 208 passed (189 + 19 new); `vitest` 9 passed; the Wix build still works (18 files, without `api/` or `tests/`).
+  - The fetch script got every card the old site reports for each gallery (for example 946 of 946 recent cards).
+  - On a local server with a fake mailbox (nothing emailed): the form sent a message that arrived with the right To, Reply-To, and subject; with email not set up, the page showed the error and the address, and kept the message typed.
+  - In the browser: gallery collections, "Show more", favourites (kept after reload), download links, Jacob's Heart (78 cards), menus, both videos have players, no sideways scrolling at 375 px.
+  - **Not tested:** a real email through Gmail (needs the app password in Vercel), the function running on Vercel itself, and browsers other than the built-in one.

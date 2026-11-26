@@ -38,6 +38,10 @@ a:hover { color: #7a35a3; }
       <h2 style="margin:0; font-weight:400; line-height:1.02; color:#2b2632;"><span style="font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(38px,4.6vw,64px);">Spreading</span> <span style="font-family:Outfit, sans-serif; font-weight:300; font-size:clamp(30px,3.8vw,52px); letter-spacing:-0.03em;">the joy…</span></h2>
       <p style="margin:0; font-size:16px; color:#6f667a;">One of the Seniors reading a card made by Ghrini.</p>
     </div>
+    <video controls="{{ true }}" playsInline="{{ true }}" preload="none" poster="https://static.wixstatic.com/media/2acf69_d41aa44a5cbf4b408e67e9938803de55f000.jpg" aria-label="Video: one of the seniors reading a card made by Ghrini" style="width:100%; max-height:70vh; aspect-ratio:16/9; border-radius:24px; background:#2b2632; display:block;">
+      <source src="https://video.wixstatic.com/video/2acf69_d41aa44a5cbf4b408e67e9938803de55/720p/mp4/file.mp4" type="video/mp4">
+      <a href="https://video.wixstatic.com/video/2acf69_d41aa44a5cbf4b408e67e9938803de55/720p/mp4/file.mp4">Watch the video</a>
+    </video>
     <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px;">
       <sc-for list="{{ photos }}" as="ph" hint-placeholder-count="6">
         <img src="{{ ph }}" alt="Seniors receiving SmileCard cards" loading="lazy" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:18px; display:block; background:#e6ecf8; transition:transform .3s ease;" style-hover="transform:scale(1.03) rotate(-1deg);">
@@ -51,18 +55,23 @@ a:hover { color: #7a35a3; }
       <p style="margin:0; font-size:16.5px; line-height:1.7; color:#5f4e58; font-weight:300;">Kindly fill out the form below with all your feedback, suggestions, questions etc. If you would like to be part of the team or if  you would like to receive copy of the cards in your email then please contact us at <a href="mailto:smilecardforeveryone@gmail.com" style="color:#a62a7c;">smilecardforeveryone@gmail.com</a></p>
     </div>
     <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-      <form onSubmit="{{ onSubmit }}" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; background:#fff; padding:clamp(24px,3vw,36px); border-radius:24px;">
-        <input required placeholder="First Name" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
-        <input placeholder="Last Name" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
-        <input required type="email" placeholder="Email" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
-        <input placeholder="Phone" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
-        <textarea placeholder="Your feedback" rows="4" style="grid-column:1 / -1; font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; resize:vertical;" style-focus="border-color:#cc3399;"></textarea>
-        <button type="submit" style="grid-column:1 / -1; justify-self:start; font:inherit; font-size:15px; font-weight:500; background:#cc3399; color:#fff; border:0; padding:15px 28px; border-radius:999px; cursor:pointer; transition:transform .2s ease, background .2s ease;" style-hover="transform:translateY(-2px); background:#b02a84;">Send Feedback</button>
+      <form onSubmit="{{ onSubmit }}" style="position:relative; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); gap:14px; background:#fff; padding:clamp(24px,3vw,36px); border-radius:24px;">
+        <input required name="first_name" maxLength="80" autoComplete="given-name" aria-label="First name" placeholder="First Name" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input name="last_name" maxLength="80" autoComplete="family-name" aria-label="Last name" placeholder="Last Name" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input required type="email" name="email" maxLength="254" autoComplete="email" aria-label="Email" placeholder="Email" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input type="tel" name="phone" maxLength="40" autoComplete="tel" aria-label="Phone (optional)" placeholder="Phone" style="font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; min-width:0;" style-focus="border-color:#cc3399;">
+        <input name="website" tabIndex="-1" autoComplete="off" aria-hidden="true" style="position:absolute; left:-10000px; width:1px; height:1px; opacity:0;">
+        <textarea required name="message" maxLength="5000" aria-label="Your feedback" placeholder="Your feedback" rows="4" style="grid-column:1 / -1; font:inherit; font-size:15.5px; padding:14px 16px; border:1px solid #d9dfee; border-radius:12px; outline:none; resize:vertical;" style-focus="border-color:#cc3399;"></textarea>
+        <button type="submit" style="grid-column:1 / -1; justify-self:start; font:inherit; font-size:15px; font-weight:500; background:#cc3399; color:#fff; border:0; padding:15px 28px; border-radius:999px; cursor:pointer; transition:transform .2s ease, background .2s ease;" style-hover="transform:translateY(-2px); background:#b02a84;" disabled="{{ sending }}">{{ buttonLabel }}</button>
+        <sc-if value="{{ failed }}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="grid-column:1 / -1; margin:0; font-size:15px; line-height:1.6; color:#9b1c55;">{{ error }} You can also email us at <a href="mailto:smilecardforeveryone@gmail.com" style="color:#9b1c55;">smilecardforeveryone@gmail.com</a>.</p>
+        </sc-if>
+        <p style="grid-column:1 / -1; margin:0; font-size:13.5px; line-height:1.5; color:#6f667a;">Your message is emailed to the SmileCard team. We only use your details to reply to you.</p>
       </form>
     </sc-if>
     <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
       <div style="display:grid; place-items:center; background:#fff; padding:40px; border-radius:24px; text-align:center;">
-        <p style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-size:32px; color:#2b2632;">Thank you for you valuable feedback!</p>
+        <p style="margin:0; font-family:'Instrument Serif', serif; font-style:italic; font-size:32px; color:#2b2632;">Thank you for your valuable feedback!</p>
       </div>
     </sc-if>
   </section>
@@ -72,8 +81,26 @@ a:hover { color: #7a35a3; }
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { d: null, sent: false };
-  componentDidMount() { import('./site-data.js').then(d => this.setState({ d })); }
+  state = { d: null, status: 'idle', error: '' };
+  componentDidMount() { this.opened = Date.now(); import('./site-data.js').then(d => this.setState({ d })); }
+  send(e) {
+    e.preventDefault();
+    if (this.state.status === 'sending') return;
+    const form = new FormData(e.target);
+    const data = Object.fromEntries(['first_name', 'last_name', 'email', 'phone', 'message', 'website'].map(k => [k, String(form.get(k) || '')]));
+    data.elapsed_ms = Date.now() - this.opened;
+    this.setState({ status: 'sending', error: '' });
+    fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(r => r.json().catch(() => ({})).then(j => {
+        if (r.ok && j.ok) return this.setState({ status: 'sent' });
+        const names = { first_name: 'first name', email: 'email', phone: 'phone', message: 'message', last_name: 'last name' };
+        const error = r.status === 400 && j.fields ? 'Please check your ' + Object.keys(j.fields).map(k => names[k] || k).join(', ') + '.'
+          : r.status === 429 ? 'You have sent several messages already. Please try again later.'
+          : 'Sorry, your message could not be sent right now.';
+        this.setState({ status: 'error', error });
+      }))
+      .catch(() => this.setState({ status: 'error', error: 'Sorry, we could not reach our server.' }));
+  }
   renderVals() {
     const d = this.state.d;
     const bgs = ['#ffffff', '#e6ecf8', '#dbe7f8', '#e8e3f4'];
@@ -81,8 +108,10 @@ class Component extends DCLogic {
       featured: d ? d.featuredTestimonial.text : '',
       quotes: d ? d.testimonials.map((text, i) => ({ text, delay: (i % 3) * 100, style: { breakInside: 'avoid', margin: '0 0 ' + 'clamp(10px,2vw,24px)', padding: 'clamp(24px,2.6vw,32px)', borderRadius: 24, background: bgs[i % 4] } })) : [],
       photos: d ? d.joyPhotos.map(id => d.img(id, 480, 360)) : [],
-      sent: this.state.sent, notSent: !this.state.sent,
-      onSubmit: e => { e.preventDefault(); this.setState({ sent: true }); },
+      sent: this.state.status === 'sent', notSent: this.state.status !== 'sent',
+      sending: this.state.status === 'sending', failed: this.state.status === 'error', error: this.state.error,
+      buttonLabel: this.state.status === 'sending' ? 'Sending…' : 'Send Feedback',
+      onSubmit: e => this.send(e),
     };
   }
 }

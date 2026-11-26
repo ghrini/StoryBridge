@@ -25,7 +25,8 @@ MENUS = ("PageHero.dc.html", HOME)
 def build() -> list[Path]:
     if OUT.exists():
         shutil.rmtree(OUT)
-    shutil.copytree(SOURCE, OUT)
+    # Wix only hosts the pages: the feedback function (api/) runs on Vercel, and the tests are not part of the site
+    shutil.copytree(SOURCE, OUT, ignore=shutil.ignore_patterns("api", "tests", "__pycache__", ".vercelignore"))
     for name in MENUS:
         page = OUT / name
         text = page.read_text(encoding="utf-8")

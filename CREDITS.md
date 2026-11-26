@@ -10,8 +10,9 @@ _Draft. Still to be completed (reminiscence-therapy references and volunteer ill
 
 ## SmileCard website and artwork
 - `smilecard-site/` holds the student's redesign of the SmileCard website, exported from Claude Design (from a zip the student shared on 2026-11-22, updated from a newer zip on 2026-11-24). Claude added a "StoryBridge" item to its menus (`PageHero.dc.html`, `SmileCard Home v7.dc.html`), an `index.html` that opens the home page, the `StoryBridge.dc.html` page, and a colour layer over the header hills in those two menu files (2026-11-24); the rest is unchanged. Older home-page versions and screenshots from the zips were not copied.
-- Its pages run on the design's own `support.js`, which loads React, ReactDOM, and Babel from unpkg.com, and they load fonts from Google Fonts and pictures from smilecard.org, so they need internet.
+- Its pages run on the design's own `support.js`, which loads React, ReactDOM, and Babel from unpkg.com, and they load fonts from Google Fonts and pictures and videos from SmileCard's Wix site (static.wixstatic.com, video.wixstatic.com), so they need internet.
 - The SmileCard logo in the app (`SmileCardArt.jsx`) is copied from that redesign's code.
+- **Cards, videos, and screenshots (2026-11-26):** the 3,188 cards, the two videos (Senior Loneliness presentation, a senior reading a card), the Jacob's Heart logo, and the two how-to screenshots all come from SmileCard's own Wix site, made by SmileCard volunteers and team. They are linked, not copied. The Jacob's Heart logo belongs to Jacob's Heart Children's Cancer Support Services.
 - **Hills drawing** (`hero-hills.svg`, on the website and in the app): from the 2026-11-24 redesign. It carries an embedded Anthropic content credential saying Claude provided the file and may have created or changed it; the credential was kept.
 - **Mountain photo** (`hero-mountains.jpg`): used by the first redesign and removed on 2026-11-24. Its source and license were never confirmed, and it is still in earlier commits, so do not reuse it without checking.
 

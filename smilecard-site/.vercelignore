@@ -1,0 +1,4 @@
+# Files in this folder that are not part of the public website (Vercel skips them).
+/tests
+__pycache__
+.vite

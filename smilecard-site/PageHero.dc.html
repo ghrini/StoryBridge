@@ -111,11 +111,10 @@ class Component extends DCLogic {
   }
   renderVals() {
     const h = React.createElement;
-    const b = 'https://www.smilecard.org';
     const cur = this.props.current || '';
     const menus = [
       { id: 'home', label: 'Home', href: 'SmileCard%20Home%20v7.dc.html' },
-      { id: 'gallery', label: 'Card Gallery ▾', href: 'Card%20Gallery.dc.html', items: [['Recent Cards', b + '/new-cards'], ['All Cards', b + '/all-cards'], ["Jacob's Heart", b + '/trinity-school']] },
+      { id: 'gallery', label: 'Card Gallery ▾', href: 'Card%20Gallery.dc.html', items: [['Recent Cards', 'Card%20Gallery.dc.html#recent'], ['All Cards', 'Card%20Gallery.dc.html#all'], ["Jacob's Heart", 'Jacobs%20Heart.dc.html']] },
       { id: 'volunteer', label: 'Volunteer', href: 'Volunteer%20Opportunities.dc.html' },
       { id: 'team', label: 'Our Team', href: 'Our%20Team.dc.html' },
       { id: 'storybridge', label: 'StoryBridge', href: '../' },

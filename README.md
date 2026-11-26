@@ -70,7 +70,7 @@ Create a story of kind "Computer-voice test", upload a clip, fill in step 2, and
 
 ## Tests
 ```powershell
-.\.venv\Scripts\python.exe -m pytest        # backend: 189 tests
+.\.venv\Scripts\python.exe -m pytest        # backend and the SmileCard feedback function: 208 tests
 cd frontend; npm test                        # frontend: 9 tests
 ```
 Backend tests never call Google; a mock network is used. Counts are as of 2026-11-24.
@@ -96,6 +96,21 @@ Backend tests never call Google; a mock network is used. Counts are as of 2026-1
 - **No service calls another**, so there are no bindings.
 - **`.vercelignore` is an allow-list.** Only those two folders and `vercel.json` go to Vercel. Keep it: without it, `vercel dev` hands out files from `data/`.
 - **To test:** `npx vercel@65.8.0 dev --local --listen 127.0.0.1:3000`. On this Windows computer 66.6.0 stopped with a symlink permission error. Without `--listen`, other devices on the Wi-Fi can open it.
+
+## The live SmileCard website
+The SmileCard website is its own Vercel project whose Root Directory is `smilecard-site/`, so the `vercel.json` above is not used by it. **Every push to `main` goes live.**
+
+- **Cards:** `cards-data.js` lists every card in the galleries of the old smilecard.org, in the same order: Recent Cards (946), All Cards (2,177), the six categories, and Jacob's Heart (78); 3,188 different cards. Rebuild it with `.\.venv\Scripts\python.exe scripts\fetch_smilecard_cards.py`. It keeps only image ids, not file names (many contain volunteers' names).
+- **Pictures and videos are still hosted by Wix** (`static.wixstatic.com`, `video.wixstatic.com`). If the Wix site is deleted they may stop loading, so copy them somewhere else first.
+- **Favourites** (♡) are saved in the visitor's own browser. **Downloads** (↓) use Wix's `?dn=` link, which makes the browser save the file.
+- **Forms:** submitting cards, service hours, and leadership applications stay Google Forms, so answers keep going to SmileCard's Google account.
+- **Feedback form → email:** `api/feedback.py` (Python, standard library only) emails each message from the Testimonials page to SmileCard's Gmail, with the visitor as Reply-To. It stores nothing and logs no personal details. It needs these in Vercel (Settings → Environment Variables, marked Sensitive):
+  - `SMTP_USER`: the Gmail address that sends the emails.
+  - `SMTP_APP_PASSWORD`: a Gmail app password for it (Google Account → Security → 2-Step Verification must be on → App passwords). Never put it in the code.
+  - `FEEDBACK_TO` (optional): where messages go; defaults to `SMTP_USER`.
+
+  Without them the form tells the visitor it could not send and shows the email address instead.
+- **Spam:** a hidden field, a 2-second minimum, a same-site check, and 5 messages per address per 10 minutes (per running copy of the function). For a firm limit, add a rate-limit rule in Vercel Firewall.
 
 ## Accessibility decisions
 - StoryBridge is one page of the SmileCard website (the student's redesign), all on one scroll:

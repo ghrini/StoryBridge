@@ -26,6 +26,7 @@ StoryBridge is a volunteer-assisted web app that turns a senior's recorded life 
 - Unconfirmed sentences cannot be exported until a person confirms the story or fixes them by hand. Grounding flags use icons plus text, never colour alone. Sentences a person rewrites are recorded as `volunteer_caption`; AI sentences as `ai_draft`.
 - Do not add hosting services, WSL, or new dependencies without asking.
 - **STUDENT REQUEST (2026-11-24): the public website goes on Vercel** (`vercel.json`: `frontend` at `/`, `smilecard` at `/smilecard/`). The StoryBridge server stays off the internet: no recordings, stories, or Gemini key on Vercel. Putting it online would need logins, storage, and new consent wording, and is the student's decision. Keep `.vercelignore` an allow-list (without it `vercel dev` hands out `data/`).
+- **STUDENT REQUEST (2026-11-26): the SmileCard website gets everything the old smilecard.org had** (every card, Jacob's Heart, the videos, all the forms, the feedback form). The live site is the Vercel project rooted at `smilecard-site/`; pushes to `main` go live. `smilecard-site/api/feedback.py` emails feedback through Gmail; its password lives only in Vercel's environment variables. Never log or store message contents. Cards and videos are still hosted by Wix.
 
 ## Stack and Windows conventions
 - Backend: Python 3.11 venv at `.venv` (`py -3.11 -m venv .venv`), FastAPI, Pydantic, faster-whisper (CPU, int8), rapidfuzz, reportlab, qrcode, pytest. ffmpeg is called directly with `subprocess` (no pydub). No WeasyPrint.
