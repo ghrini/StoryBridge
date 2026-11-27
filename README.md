@@ -70,7 +70,7 @@ Create a story of kind "Computer-voice test", upload a clip, fill in step 2, and
 
 ## Tests
 ```powershell
-.\.venv\Scripts\python.exe -m pytest        # backend and the SmileCard feedback function: 208 tests
+.\.venv\Scripts\python.exe -m pytest        # backend and the SmileCard feedback function: 212 tests
 cd frontend; npm test                        # frontend: 9 tests
 ```
 Backend tests never call Google; a mock network is used. Counts are as of 2026-11-24.
@@ -104,12 +104,9 @@ The SmileCard website is its own Vercel project whose Root Directory is `smileca
 - **Pictures and videos are still hosted by Wix** (`static.wixstatic.com`, `video.wixstatic.com`). If the Wix site is deleted they may stop loading, so copy them somewhere else first.
 - **Favourites** (♡) are saved in the visitor's own browser. **Downloads** (↓) use Wix's `?dn=` link, which makes the browser save the file.
 - **Forms:** submitting cards, service hours, and leadership applications stay Google Forms, so answers keep going to SmileCard's Google account.
-- **Feedback form → email:** `api/feedback.py` (Python, standard library only) emails each message from the Testimonials page to SmileCard's Gmail, with the visitor as Reply-To. It stores nothing and logs no personal details. It needs these in Vercel (Settings → Environment Variables, marked Sensitive):
-  - `SMTP_USER`: the Gmail address that sends the emails.
-  - `SMTP_APP_PASSWORD`: a Gmail app password for it (Google Account → Security → 2-Step Verification must be on → App passwords). Never put it in the code.
-  - `FEEDBACK_TO` (optional): where messages go; defaults to `SMTP_USER`.
-
-  Without them the form tells the visitor it could not send and shows the email address instead.
+- **Feedback form:** `api/feedback.py` (Python, standard library only) saves each message from the Testimonials page as a text file in the **private** Vercel Blob store `smilecard-feedback`. **To read messages:** Vercel → Storage → smilecard-feedback → Manage Blobs → `feedback/` (newest file names are the latest dates, in UTC). Only people in the Vercel team can open them. There is no password to keep: the store is connected to the project (`BLOB_STORE_ID`) and Vercel signs each request with a short-lived OIDC token. Logs never contain personal details.
+  - Optional, later: if `SMTP_USER` and `SMTP_APP_PASSWORD` (a Gmail app password) are added in Vercel, each message is also emailed (to `FEEDBACK_TO` or `SMTP_USER`) with the visitor as Reply-To. Gmail would not give an app password on the SmileCard Google account, so this is off.
+  - If nothing works, the form tells the visitor it could not send and shows the email address instead.
 - **Spam:** a hidden field, a 2-second minimum, a same-site check, and 5 messages per address per 10 minutes (per running copy of the function). For a firm limit, add a rate-limit rule in Vercel Firewall.
 
 ## Accessibility decisions
