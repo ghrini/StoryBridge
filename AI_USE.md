@@ -386,3 +386,10 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
 - **Student wrote:** nothing in this entry. **Student changed:** nothing.
 - **Student can explain independently:** _student to fill in_
 - **Verification, real runs:** a search of smilecard-site and frontend/src finds no old email or old form links; the new form links open the published forms. **Not tested:** pytest and vitest, which were not run for this text-only change.
+
+### 026 - 2026-11-26 - Website matches the SmileCard brand guide
+- **Student request:** make sure the website follows the brand and logo in the student's SmileCard brand PDFs.
+- **Claude did:** compared the site with the brand guide. Logo, colors and fonts already matched. Added a browser tab icon, assets/favicon.svg, drawn from the site's own logo on the Smile Purple circle from the guide, plus a SmileCard page title on every page, and fixed one Smile Card spelling to SmileCard, per the one-word rule.
+- **Student wrote:** the brand guide. **Student changed:** nothing in code.
+- **Student can explain independently:** _student to fill in_
+- **Verification:** the icon was rendered to an image and compared with the guide's Smile Purple profile picture; the live pages are checked after the push.
