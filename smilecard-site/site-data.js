@@ -1,6 +1,6 @@
 export const img = (id, w, h) => `https://static.wixstatic.com/media/${id}/v1/fill/w_${w},h_${h},q_85/i.${id.split('.').pop()}`;
 export const full = id => `https://static.wixstatic.com/media/${id}`;
-export const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScbifU4qpK1Ve_Ozm_0r_g-85fLoYGNTssn-7Y0YbRWeX8-Dg/viewform';
+export const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSe3dOvIijo-PciT-InBex2nxFRgKduGeiK5NaNx9uNQG1NZWg/viewform';
 
 export const gallery = {
   'Handmade': ['b403a2_03651fc2d5e84bcaa2563360d60e7275~mv2.jpg','b403a2_b7b3e44eb465414ab6d6d7de435f692d~mv2.jpg','b403a2_16d1f3bcf1964107bcacc29c168fcb0f~mv2.jpg','b403a2_1ea321e07e5f4004a14c1c3f0fb7bbd7~mv2.jpg','2acf69_4f32a3d2c6b04583b3ea03171964bd22~mv2.jpg','2acf69_45db240b099346d199880c01b0ce39eb~mv2.jpg','2acf69_e926a42516524a05909401d4d4452138~mv2.jpg','2acf69_ab59532cfcc146c59d62f2ad1ad555d4~mv2.jpg','634fd7_6cdcbc3721aa4296a4320cd78f9b9aaa~mv2.jpg','634fd7_c20e36f38b554198a92081b2f7bf6e9d~mv2.jpg','63c1c1_7ead5fddf6e249489a8657e8d6d91bfa~mv2.jpg','63c1c1_c872183247db4861a8be42823256ec22~mv2.jpg'],
@@ -93,4 +93,4 @@ export const team = [
     ['Chloe Fan','Website Director','Chloe is currently a freshman at Amador Valley High School. She enjoys playing tennis, baking, reading, shopping, and going out with friends! She also loves meeting new people, listening to music, and trying new things. Chloe is eager to help others around her and is passionate about giving back to her community, so she joined SmileCard to support and encourage positive change.','333812_156421854ad044e4bf35dec2dcad11ba~mv2.jpg'],
   ]},
 ];
-export const openRoles = 'https://forms.gle/mCuVu9THoPggwdUC6';
+export const openRoles = 'https://docs.google.com/forms/d/e/1FAIpQLSe0DadkBOv3818imOohA_6HN0FYnl5l1hwfINbETkO3Gfc3Wg/viewform';

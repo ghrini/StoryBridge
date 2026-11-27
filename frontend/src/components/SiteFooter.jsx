@@ -2,7 +2,7 @@ import { HOSTED } from "../services/hosted.js";
 
 /** The SmileCard website's closing band and dark footer (from the student's redesign), plus StoryBridge's
  *  privacy line. */
-const FORM = "https://docs.google.com/forms/d/e/1FAIpQLScbifU4qpK1Ve_Ozm_0r_g-85fLoYGNTssn-7Y0YbRWeX8-Dg/viewform";
+const FORM = "https://docs.google.com/forms/d/e/1FAIpQLSe3dOvIijo-PciT-InBex2nxFRgKduGeiK5NaNx9uNQG1NZWg/viewform";
 const page = (file) => `/smilecard/${encodeURIComponent(file)}.dc.html`;
 
 const COLUMNS = [
@@ -30,7 +30,7 @@ const COLUMNS = [
     title: "Contact",
     tone: "purple",
     links: [
-      [<>Smilecardforeveryone<wbr />@gmail.com</>, "mailto:Smilecardforeveryone@gmail.com"],
+      [<>smilecardnonprofit<wbr />@gmail.com</>, "mailto:smilecardnonprofit@gmail.com"],
       ["Facebook", "https://www.facebook.com/smilecardorg"],
       ["Instagram", "https://www.instagram.com/smilecard_/"],
     ],

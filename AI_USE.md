@@ -378,3 +378,11 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
   - **Not tested:** a real email through Gmail (needs the app password in Vercel), the function running on Vercel itself, and browsers other than the built-in one.
 - **Change the same day:** Google would not give an app password on the SmileCard account, so at the student's request Claude created a private Vercel Blob store `smilecard-feedback` (in the student's signed-in Vercel dashboard, connected to the site, no read-write token) and changed `api/feedback.py` to save each message there; email stays optional. 4 more tests (`pytest` 212 passed).
   - **Checked on the Vercel preview:** a test message sent through the real form was saved (`feedback/2026-11-27_03-48-22_…txt`, 237 bytes) and opened as readable text in the dashboard.
+
+
+### 025 - 2026-11-26 - New SmileCard email and new forms on the website
+- **Student request:** make a new email for SmileCard, redo the old forms much neater in the new account, and point the website at them.
+- **Claude did:** replaced the old address smilecardforeveryone@gmail.com with smilecardnonprofit@gmail.com, and the old Google Form links with the new Card Submission form, which now includes volunteer hours, and the new Leadership Application, in smilecard-site and the StoryBridge app footer and help link. Reworded the card tip about choosing Other, since the new form has no Other choice. The Paused note on volunteer hours was left for the student to decide.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _student to fill in_
+- **Verification, real runs:** a search of smilecard-site and frontend/src finds no old email or old form links; the new form links open the published forms. **Not tested:** pytest and vitest, which were not run for this text-only change.
