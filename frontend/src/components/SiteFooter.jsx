@@ -32,7 +32,7 @@ const COLUMNS = [
     links: [
       [<>smilecardnonprofit<wbr />@gmail.com</>, "mailto:smilecardnonprofit@gmail.com"],
       ["Facebook", "https://www.facebook.com/smilecardorg"],
-      ["Instagram", "https://www.instagram.com/smilecard_/"],
+      ["Instagram", "https://www.instagram.com/smilecardm/"],
     ],
   },
 ];
