@@ -1,24 +1,29 @@
-"""POST /api/feedback: the Testimonials page form. Each message is emailed to SmileCard's inbox.
+"""POST /api/feedback: the Testimonials page form.
 
-A Vercel Python function using only the standard library. It needs these environment variables
-(set them in Vercel: Project → Settings → Environment Variables; never put them in the code):
-    SMTP_USER          the Gmail address that sends the email (e.g. SmileCard's own Gmail)
-    SMTP_APP_PASSWORD  a Gmail "app password" for that address (needs 2-Step Verification on the account)
-    FEEDBACK_TO        optional: where messages go (defaults to SMTP_USER)
-    SMTP_HOST / SMTP_PORT  optional: default smtp.gmail.com / 465 (SSL)
+A Vercel Python function using only the standard library. Each message is saved as a text file in the
+PRIVATE Vercel Blob store "smilecard-feedback" (Vercel → Storage → smilecard-feedback), which only people
+signed in to the Vercel team can read. Vercel adds BLOB_STORE_ID when the store is connected to the project,
+and signs each request with a short-lived OIDC token, so there is no password to keep.
 
-Nothing is stored here: the message goes straight into the email. The visitor's address is set as
-Reply-To, so pressing Reply in Gmail answers them. Nothing personal is written to the logs.
+Email is optional, for later: if SMTP_USER and SMTP_APP_PASSWORD (a Gmail app password) are set in Vercel,
+each message is also emailed (to FEEDBACK_TO, or SMTP_USER), with the visitor as Reply-To.
+
+Nothing personal is written to the logs.
 """
 import json
 import os
 import re
+import secrets
 import smtplib
 import threading
 import time
+import urllib.error
+import urllib.request
+from datetime import datetime, timezone
 from email.message import EmailMessage
 from email.utils import formataddr
 from http.server import BaseHTTPRequestHandler
+import urllib.parse
 from urllib.parse import urlsplit
 
 MAX_BODY = 20_000  # bytes; a long message is about 5,000 characters
@@ -29,6 +34,8 @@ LIMITS = {"first_name": 80, "last_name": 80, "email": 254, "phone": 40, "message
 EMAIL = re.compile(r"^[^@\s<>,;:\"]+@[^@\s<>,;:\"]+\.[A-Za-z]{2,}$")
 PHONE = re.compile(r"^[0-9+()\-.\s]{0,40}$")
 CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+BLOB_API = "https://vercel.com/api/blob/"  # what Vercel's own @vercel/blob library calls (API version 13)
 
 _recent: dict[str, list[float]] = {}
 _lock = threading.Lock()
@@ -91,6 +98,49 @@ def too_many(client: str, now: float | None = None) -> bool:
         return blocked
 
 
+def message_text(fields: dict, received: datetime) -> str:
+    name = " ".join(part for part in (fields["first_name"], fields["last_name"]) if part)
+    return (
+        "Message from the feedback form on the SmileCard website.\n\n"
+        f"Received: {received.strftime('%Y-%m-%d %H:%M')} UTC\n"
+        f"Name:  {name}\n"
+        f"Email: {fields['email']}\n"
+        f"Phone: {fields['phone'] or '(not given)'}\n\n"
+        f"Message:\n{fields['message']}\n"
+    )
+
+
+def blob_token(headers, env) -> str:
+    """Vercel puts a short-lived OIDC token on each request to a function; a read-write token also works."""
+    return (headers.get("x-vercel-oidc-token") or env.get("VERCEL_OIDC_TOKEN")
+            or env.get("BLOB_READ_WRITE_TOKEN") or "").strip()
+
+
+def save_message(fields: dict, store_id: str, token: str, received: datetime | None = None) -> str:
+    """Save one message as a private text file; return its name. Raises on any failure."""
+    received = received or datetime.now(timezone.utc)
+    pathname = f"feedback/{received.strftime('%Y-%m-%d_%H-%M-%S')}_{secrets.token_hex(3)}.txt"
+    request = urllib.request.Request(
+        BLOB_API + "?" + urllib.parse.urlencode({"pathname": pathname}),
+        data=message_text(fields, received).encode("utf-8"),
+        method="PUT",
+        headers={
+            "authorization": f"Bearer {token}",
+            "x-vercel-blob-store-id": store_id,
+            "x-api-version": "13",
+            "x-api-blob-request-id": f"{store_id}:{int(received.timestamp() * 1000)}:{secrets.token_hex(4)}",
+            "x-api-blob-request-attempt": "0",
+            "x-vercel-blob-access": "private",
+            "x-content-type": "text/plain; charset=utf-8",
+            "x-add-random-suffix": "0",
+            "x-allow-overwrite": "0",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=20) as response:
+        saved = json.loads(response.read().decode("utf-8") or "{}")
+    return saved.get("pathname", pathname)
+
+
 def build_email(fields: dict, sender: str, to: str) -> EmailMessage:
     name = " ".join(part for part in (fields["first_name"], fields["last_name"]) if part)
     msg = EmailMessage()
@@ -126,10 +176,11 @@ def same_site(headers) -> bool:
     return bool(host) and urlsplit(origin).netloc.lower() == host
 
 
-def handle(method: str, headers, body: bytes, client: str, env=None, sender=None):
+def handle(method: str, headers, body: bytes, client: str, env=None, sender=None, saver=None):
     """Return (status, response dict). Kept apart from the HTTP plumbing so it can be tested directly."""
     env = os.environ if env is None else env
     sender = sender or send_email
+    saver = saver or save_message
     if method != "POST":
         return 405, {"ok": False, "error": "method_not_allowed"}
     if not same_site(headers):
@@ -149,16 +200,30 @@ def handle(method: str, headers, body: bytes, client: str, env=None, sender=None
         return 400, {"ok": False, "error": "invalid", "fields": problems}
     if too_many(client):
         return 429, {"ok": False, "error": "too_many"}
-    if not env.get("SMTP_USER") or not env.get("SMTP_APP_PASSWORD"):
-        print("feedback: email is not set up (SMTP_USER / SMTP_APP_PASSWORD missing)")
+    store_id, token = env.get("BLOB_STORE_ID", "").strip(), blob_token(headers, env)
+    email_ready = bool(env.get("SMTP_USER") and env.get("SMTP_APP_PASSWORD"))
+    if not (store_id and token) and not email_ready:
+        print("feedback: nowhere to deliver (no Blob store connected, no email set up)")
         return 503, {"ok": False, "error": "not_configured"}
-    to = env.get("FEEDBACK_TO") or env["SMTP_USER"]
-    try:
-        sender(build_email(fields, env["SMTP_USER"], to), env)
-    except (smtplib.SMTPException, OSError) as error:
-        print(f"feedback: sending failed ({type(error).__name__})")
+    delivered = False
+    if store_id and token:
+        try:
+            saver(fields, store_id, token)
+            delivered = True
+            print("feedback: message saved")
+        except urllib.error.HTTPError as error:
+            print(f"feedback: saving failed (HTTP {error.code})")
+        except (urllib.error.URLError, OSError, ValueError) as error:
+            print(f"feedback: saving failed ({type(error).__name__})")
+    if email_ready:
+        try:
+            sender(build_email(fields, env["SMTP_USER"], env.get("FEEDBACK_TO") or env["SMTP_USER"]), env)
+            delivered = True
+            print("feedback: message emailed")
+        except (smtplib.SMTPException, OSError) as error:
+            print(f"feedback: emailing failed ({type(error).__name__})")
+    if not delivered:
         return 502, {"ok": False, "error": "send_failed"}
-    print("feedback: message sent")
     return 200, {"ok": True}
 
 

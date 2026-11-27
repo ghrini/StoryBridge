@@ -128,3 +128,72 @@ def test_the_vercel_handler_class_over_real_http(monkeypatch):
     finally:
         server.shutdown()
     assert len(sent) == 1 and sent[0]["Reply-To"] == "Ana Lopez <ana@example.com>"
+
+
+# --- saving to the private Vercel Blob store -------------------------------------------------------
+BLOB_ENV = {"BLOB_STORE_ID": "store_test123"}
+OIDC = {**HEADERS, "x-vercel-oidc-token": "oidc-test-token"}
+
+
+def deliver(env, headers=OIDC, save_ok=True, send_ok=True):
+    saved, sent = [], []
+
+    def saver(fields, store_id, token):
+        if not save_ok:
+            raise urllib.error.HTTPError("https://vercel.com/api/blob/", 403, "Forbidden", {}, None)
+        saved.append((fields, store_id, token))
+
+    def sender(msg, e):
+        if not send_ok:
+            raise smtplib.SMTPServerDisconnected("gone")
+        sent.append(msg)
+
+    status, payload = feedback.handle("POST", headers, json.dumps(GOOD).encode(), "203.0.113.9",
+                                      env=env, sender=sender, saver=saver)
+    return status, payload, saved, sent
+
+
+def test_messages_are_saved_with_the_store_id_and_the_request_token():
+    status, payload, saved, sent = deliver(BLOB_ENV)
+    assert (status, payload, sent) == (200, {"ok": True}, [])
+    [(fields, store_id, token)] = saved
+    assert (fields["email"], store_id, token) == ("ana@example.com", "store_test123", "oidc-test-token")
+
+
+def test_without_a_token_the_store_is_not_used():
+    assert deliver(BLOB_ENV, headers=HEADERS)[0] == 503
+
+
+def test_a_failed_save_is_reported_unless_the_email_went_out():
+    assert deliver(BLOB_ENV, save_ok=False)[:2] == (502, {"ok": False, "error": "send_failed"})
+    status, _, saved, sent = deliver({**BLOB_ENV, **ENV}, save_ok=False)
+    assert (status, saved, len(sent)) == (200, [], 1)
+
+
+def test_save_message_makes_the_same_request_as_vercels_library(monkeypatch):
+    seen = []
+
+    class Reply:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return json.dumps({"pathname": seen[0].full_url.split("pathname=")[1].replace("%2F", "/")}).encode()
+
+    monkeypatch.setattr(feedback.urllib.request, "urlopen", lambda req, timeout: seen.append(req) or Reply())
+    from datetime import datetime, timezone
+    fields, _ = feedback.validate(GOOD)
+    name = feedback.save_message(fields, "store_test123", "tok", datetime(2026, 11, 26, 14, 5, 9, tzinfo=timezone.utc))
+    [req] = seen
+    assert req.get_method() == "PUT"
+    assert req.full_url.startswith("https://vercel.com/api/blob/?pathname=feedback%2F2026-11-26_14-05-09_")
+    headers = {k.lower(): v for k, v in req.header_items()}
+    assert headers["authorization"] == "Bearer tok"
+    assert headers["x-vercel-blob-store-id"] == "store_test123"
+    assert (headers["x-api-version"], headers["x-vercel-blob-access"]) == ("13", "private")
+    body = req.data.decode()
+    assert "Ana Lopez" in body and "ana@example.com" in body and "The residents loved them." in body
+    assert name.startswith("feedback/2026-11-26_14-05-09_") and name.endswith(".txt")
