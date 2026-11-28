@@ -393,3 +393,10 @@ Each entry: what Claude suggested/generated · what the student wrote · what th
 - **Student wrote:** the brand guide. **Student changed:** nothing in code.
 - **Student can explain independently:** _student to fill in_
 - **Verification:** the icon was rendered to an image and compared with the guide's Smile Purple profile picture; the live pages are checked after the push.
+
+### 027 — 2026-11-27 — StoryBridge page on the live website
+- **Student request:** "story bridge isnt on the vercel site".
+- **Claude did:** the SmileCard address in the app is now a build setting (`VITE_SMILECARD_SITE`, default `/smilecard/`). Wrote `scripts/build_storybridge_page.py`, which builds the hosted StoryBridge page into `smilecard-site/storybridge/` with SmileCard links to `/` and checks the hills drawing is copied byte for byte. The menus' StoryBridge item opens `/storybridge/` on the live site and still opens the real app (`../`) next to it on a volunteer's computer. The Wix build leaves the folder out.
+- **Student wrote:** nothing in this entry. **Student changed:** nothing.
+- **Student can explain independently:** _(student to fill in)_
+- **Verification (real runs):** `vitest` 9 passed; `pytest` 212 passed; the app's own build still links to `/smilecard/`. On a local copy of the site: the home page menu opened `/storybridge/`, the page showed the hosted notice and the hills, and all 9 SmileCard links on it answered 200; no sideways scrolling at phone width.

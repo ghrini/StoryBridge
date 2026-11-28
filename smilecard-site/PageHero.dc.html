@@ -111,13 +111,16 @@ class Component extends DCLogic {
   }
   renderVals() {
     const h = React.createElement;
+    // Next to the app on a volunteer's computer this site is at /smilecard/ and StoryBridge is one level up;
+    // on the live website the public StoryBridge page is at /storybridge/.
+    const STORYBRIDGE = location.pathname.startsWith('/smilecard/') ? '../' : '/storybridge/';
     const cur = this.props.current || '';
     const menus = [
       { id: 'home', label: 'Home', href: 'SmileCard%20Home%20v7.dc.html' },
       { id: 'gallery', label: 'Card Gallery ▾', href: 'Card%20Gallery.dc.html', items: [['Recent Cards', 'Card%20Gallery.dc.html#recent'], ['All Cards', 'Card%20Gallery.dc.html#all'], ["Jacob's Heart", 'Jacobs%20Heart.dc.html']] },
       { id: 'volunteer', label: 'Volunteer', href: 'Volunteer%20Opportunities.dc.html' },
       { id: 'team', label: 'Our Team', href: 'Our%20Team.dc.html' },
-      { id: 'storybridge', label: 'StoryBridge', href: '../' },
+      { id: 'storybridge', label: 'StoryBridge', href: STORYBRIDGE },
       { id: 'more', label: 'More ▾', href: '#', items: [['Beneficiaries', 'Beneficiaries.dc.html'], ['Volunteers', 'Volunteers.dc.html'], ['Senior Loneliness Awareness', 'Senior%20Loneliness%20Awareness.dc.html'], ['Testimonials', 'Testimonials.dc.html']] },
     ];
     const nav = menus.map((m, i) => ({

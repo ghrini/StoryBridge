@@ -343,12 +343,15 @@ class Component extends DCLogic {
       mini('b', 63, 64, 36, 66, '#2f6fd6', 10, -12));
   }
   renderVals() {
+    // Next to the app on a volunteer's computer this site is at /smilecard/ and StoryBridge is one level up;
+    // on the live website the public StoryBridge page is at /storybridge/.
+    const STORYBRIDGE = location.pathname.startsWith('/smilecard/') ? '../' : '/storybridge/';
     const menus = [
       { label: 'Home', href: 'SmileCard%20Home%20v7.dc.html' },
       { label: 'Card Gallery ▾', href: 'Card%20Gallery.dc.html', items: [['Recent Cards', 'Card%20Gallery.dc.html#recent'], ['All Cards', 'Card%20Gallery.dc.html#all'], ["Jacob's Heart", 'Jacobs%20Heart.dc.html']] },
       { label: 'Volunteer', href: 'Volunteer%20Opportunities.dc.html' },
       { label: 'Our Team', href: 'Our%20Team.dc.html' },
-      { label: 'StoryBridge', href: '../' },
+      { label: 'StoryBridge', href: STORYBRIDGE },
       { label: 'More ▾', href: '#', items: [['Beneficiaries', 'Beneficiaries.dc.html'], ['Volunteers', 'Volunteers.dc.html'], ['Senior Loneliness Awareness', 'Senior%20Loneliness%20Awareness.dc.html'], ['Testimonials', 'Testimonials.dc.html']] },
     ];
     const nav = menus.map((m, i) => ({

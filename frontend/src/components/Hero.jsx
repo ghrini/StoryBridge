@@ -1,9 +1,6 @@
-import { ASK_US, HOSTED } from "../services/hosted.js";
+import { ASK_US, HOSTED, smilecardPage as page } from "../services/hosted.js";
 import { SmileCardLogo } from "./SmileCardArt.jsx";
 
-/** The redesigned SmileCard website, served next to StoryBridge at /smilecard/. */
-const SITE = "/smilecard/";
-const page = (file) => `${SITE}${encodeURIComponent(file)}.dc.html`;
 
 const MENU = [
   { label: "Home", href: page("SmileCard Home v7") },

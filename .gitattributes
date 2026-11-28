@@ -1,4 +1,4 @@
 # keep the hills drawing byte for byte, so its embedded content credential stays intact
-hero-hills.svg -text
+hero-hills*.svg -text
 # The privacy allow-list for Vercel: keep its line endings exactly as tested.
 .vercelignore text eol=lf

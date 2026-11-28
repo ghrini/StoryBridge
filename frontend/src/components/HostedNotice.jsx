@@ -1,4 +1,4 @@
-import { ASK_US } from "../services/hosted.js";
+import { ASK_US, smilecardPage } from "../services/hosted.js";
 
 /** On the public website, shown where the story tools are in the app on a volunteer's computer. */
 export default function HostedNotice() {
@@ -30,7 +30,7 @@ export default function HostedNotice() {
           storyteller&rsquo;s permission, and nothing is shared until the family says it is right.
         </p>
         <p className="actions">
-          <a className="pill pill-dark" href="/smilecard/StoryBridge.dc.html">
+          <a className="pill pill-dark" href={smilecardPage("StoryBridge")}>
             About StoryBridge <span aria-hidden="true">↗</span>
           </a>
         </p>

@@ -1,9 +1,8 @@
-import { HOSTED } from "../services/hosted.js";
+import { HOSTED, smilecardPage as page } from "../services/hosted.js";
 
 /** The SmileCard website's closing band and dark footer (from the student's redesign), plus StoryBridge's
  *  privacy line. */
 const FORM = "https://docs.google.com/forms/d/e/1FAIpQLSe3dOvIijo-PciT-InBex2nxFRgKduGeiK5NaNx9uNQG1NZWg/viewform";
-const page = (file) => `/smilecard/${encodeURIComponent(file)}.dc.html`;
 
 const COLUMNS = [
   {

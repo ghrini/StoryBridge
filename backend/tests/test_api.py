@@ -360,7 +360,9 @@ def test_the_smilecard_website_is_served_next_to_the_app(client):
     home = client.get("/smilecard/")
     assert home.status_code == 200 and "SmileCard%20Home%20v7.dc.html" in home.text
     page = client.get("/smilecard/PageHero.dc.html")
-    assert page.status_code == 200 and "label: 'StoryBridge', href: '../'" in page.text  # the site links to the app
+    assert page.status_code == 200 and "label: 'StoryBridge', href: STORYBRIDGE" in page.text
+    # served here at /smilecard/, the menu opens the app one level up; on the live website, the public page
+    assert "location.pathname.startsWith('/smilecard/') ? '../' : '/storybridge/'" in page.text
 
 
 def test_the_smilecard_website_is_only_for_this_computer(settings):
